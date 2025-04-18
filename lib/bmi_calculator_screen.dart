@@ -8,14 +8,15 @@ class BMICalculatorScreen extends StatefulWidget {
 }
 
 class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
-  double _height = 5.0; // Default height in feet
+  int _feet = 5; // Default height in feet
+  int _inches = 0; // Default height in inches
   double _weight = 60.0; // Default weight in kg
   double? _bmi;
   String _result = '';
   List<String> _healthTips = [];
 
   void _calculateBMI() {
-    final heightInCm = _height * 30.48; // Convert height from feet to cm
+    final heightInCm = (_feet * 30.48) + (_inches * 2.54); // Convert height from feet and inches to cm
     final bmi = _weight / ((heightInCm / 100) * (heightInCm / 100));
 
     setState(() {
@@ -79,7 +80,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Height Slider
+              // Height Input (Feet)
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -88,25 +89,52 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '${_height.toStringAsFixed(1)} ft',
+                    '$_feet ft',
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               Slider(
-                value: _height,
+                value: _feet.toDouble(),
                 min: 4.0,
                 max: 7.0,
-                divisions: 30,
-                label: '${_height.toStringAsFixed(1)} ft',
+                divisions: 3,
+                label: '$_feet ft',
                 onChanged: (value) {
                   setState(() {
-                    _height = value;
+                    _feet = value.toInt();
                   });
                 },
               ),
 
-              // Weight Slider
+              // Height Input (Inches)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Height (in)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '$_inches in',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Slider(
+                value: _inches.toDouble(),
+                min: 0.0,
+                max: 11.0,
+                divisions: 11,
+                label: '$_inches in',
+                onChanged: (value) {
+                  setState(() {
+                    _inches = value.toInt();
+                  });
+                },
+              ),
+
+              // Weight Input
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
