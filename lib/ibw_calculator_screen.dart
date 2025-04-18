@@ -63,6 +63,7 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
         title: const Text('IBW Calculator', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: Container(

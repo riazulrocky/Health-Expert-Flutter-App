@@ -79,6 +79,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
         title: const Text('BMI Calculator', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         elevation: 0,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: SingleChildScrollView(
         child: Container(
