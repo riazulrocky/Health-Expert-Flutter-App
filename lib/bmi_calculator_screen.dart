@@ -8,43 +8,47 @@ class BMICalculatorScreen extends StatefulWidget {
 }
 
 class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
-  final TextEditingController _feetController = TextEditingController();
-  final TextEditingController _inchesController = TextEditingController();
-  final TextEditingController _weightController = TextEditingController();
-
+  double _height = 5.0; // Default height in feet
+  double _weight = 60.0; // Default weight in kg
   double? _bmi;
   String _result = '';
+  List<String> _healthTips = [];
 
   void _calculateBMI() {
-    final feet = int.tryParse(_feetController.text);
-    final inches = int.tryParse(_inchesController.text);
-    final weight = double.tryParse(_weightController.text);
+    final heightInCm = _height * 30.48; // Convert height from feet to cm
+    final bmi = _weight / ((heightInCm / 100) * (heightInCm / 100));
 
-    // Validate inputs
-    if (feet == null || inches == null || weight == null || feet <= 0 || inches < 0 || weight <= 0) {
-      setState(() {
-        _result = 'Please enter valid height and weight.';
-        _bmi = null;
-      });
-      return;
-    }
-
-    // Convert height from feet and inches to centimeters
-    final heightInCm = (feet * 30.48) + (inches * 2.54);
-
-    // Calculate BMI
-    final bmi = weight / ((heightInCm / 100) * (heightInCm / 100));
     setState(() {
       _bmi = bmi;
 
       if (bmi < 18.5) {
         _result = 'Underweight';
-      } else if (bmi < 24.9) {
-        _result = 'Normal Weight';
-      } else if (bmi < 29.9) {
+        _healthTips = [
+          'Try to eat more calorie-dense foods.',
+          'Include protein-rich foods in your diet.',
+          'Consult a nutritionist for personalized advice.',
+        ];
+      } else if (bmi >= 18.5 && bmi < 25) {
+        _result = 'Healthy';
+        _healthTips = [
+          'Maintain a balanced diet and regular exercise.',
+          'Stay hydrated and get enough sleep.',
+          'Continue your healthy lifestyle.',
+        ];
+      } else if (bmi >= 25 && bmi < 30) {
         _result = 'Overweight';
+        _healthTips = [
+          'Focus on reducing calorie intake.',
+          'Increase physical activity levels.',
+          'Consider consulting a healthcare professional.',
+        ];
       } else {
         _result = 'Obese';
+        _healthTips = [
+          'Seek medical advice for a structured weight loss plan.',
+          'Engage in regular exercise under supervision.',
+          'Adopt a balanced diet with portion control.',
+        ];
       }
     });
   }
@@ -53,8 +57,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BMI Calculator', style:
-        TextStyle(color: Colors.white),),
+        title: const Text('BMI Calculator', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         elevation: 0,
       ),
@@ -76,56 +79,59 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Height Input (Feet and Inches)
+              // Height Slider
               Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _feetController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Height (ft)',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true,
-                        fillColor: Colors.teal.withOpacity(0.1),
-                      ),
-                    ),
+                  const Text(
+                    'Height (ft)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  const SizedBox(width: 10),
-                  Expanded(
-                    child: TextField(
-                      controller: _inchesController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        labelText: 'Height (in)',
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(8),
-                        ),
-                        filled: true,
-                        fillColor: Colors.teal.withOpacity(0.1),
-                      ),
-                    ),
+                  Text(
+                    '${_height.toStringAsFixed(1)} ft',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-
-              // Weight Input
-              TextField(
-                controller: _weightController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  labelText: 'Weight (kg)',
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  filled: true,
-                  fillColor: Colors.teal.withOpacity(0.1),
-                ),
+              Slider(
+                value: _height,
+                min: 4.0,
+                max: 7.0,
+                divisions: 30,
+                label: '${_height.toStringAsFixed(1)} ft',
+                onChanged: (value) {
+                  setState(() {
+                    _height = value;
+                  });
+                },
               ),
-              const SizedBox(height: 20),
+
+              // Weight Slider
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Weight (kg)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '${_weight.toStringAsFixed(1)} kg',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Slider(
+                value: _weight,
+                min: 40.0,
+                max: 150.0,
+                divisions: 110,
+                label: '${_weight.toStringAsFixed(1)} kg',
+                onChanged: (value) {
+                  setState(() {
+                    _weight = value;
+                  });
+                },
+              ),
 
               // Calculate Button
               ElevatedButton(
@@ -145,37 +151,58 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Result Display
+              // BMI Display
               if (_bmi != null)
-                Card(
-                  elevation: 4,
-                  shape: RoundedRectangleBorder(
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        Colors.teal.shade100,
+                        Colors.teal.shade50,
+                      ],
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                    ),
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Colors.teal.shade100, Colors.teal.shade50],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'BMI',
+                            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                          const SizedBox(width: 8),
+                          Text(
+                            _bmi!.toStringAsFixed(2),
+                            style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                          ),
+                        ],
                       ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Your BMI: ${_bmi!.toStringAsFixed(2)}',
-                          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.teal),
-                        ),
-                        const SizedBox(height: 8),
-                        Text(
-                          'Result: $_result',
-                          style: const TextStyle(fontSize: 16, color: Colors.teal),
-                        ),
-                      ],
-                    ),
+                      const SizedBox(height: 16),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text(
+                            'Category: ',
+                            style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                          Text(
+                            _result,
+                            style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 16),
+                      ..._healthTips.map((tip) => Text(
+                        tip,
+                        style: const TextStyle(fontSize: 16),
+                      )),
+                    ],
                   ),
                 ),
             ],
@@ -183,13 +210,5 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
         ),
       ),
     );
-  }
-
-  @override
-  void dispose() {
-    _feetController.dispose();
-    _inchesController.dispose();
-    _weightController.dispose();
-    super.dispose();
   }
 }
