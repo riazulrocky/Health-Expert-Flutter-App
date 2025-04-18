@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'bmi_calculator_screen.dart'; // Import the BMI Calculator screen
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -62,7 +63,7 @@ class HomePage extends StatelessWidget {
                     itemCount: quickActions.length,
                     itemBuilder: (context, index) {
                       final action = quickActions[index];
-                      return _buildQuickActionCard(action['icon']!, action['label']!);
+                      return _buildQuickActionCard(context, action['icon']!, action['label']!);
                     },
                   ),
                 ],
@@ -131,7 +132,7 @@ class HomePage extends StatelessWidget {
   }
 
   // Helper method to build quick action cards
-  Widget _buildQuickActionCard(IconData icon, String label) {
+  Widget _buildQuickActionCard(BuildContext context, IconData icon, String label) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(
@@ -139,8 +140,14 @@ class HomePage extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          // Perform action based on the label
-          print('Tapped: $label');
+          if (label.contains('BMI')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const BMICalculatorScreen()),
+            );
+          } else {
+            print('Tapped: $label');
+          }
         },
         child: Padding(
           padding: const EdgeInsets.all(16),
