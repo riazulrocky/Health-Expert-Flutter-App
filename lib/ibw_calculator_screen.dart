@@ -13,12 +13,14 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
   String _gender = 'Male'; // Default gender
   int? _ibw; // Store IBW as an integer
   String _result = '';
+  String _healthTip = ''; // Single health tip
 
   void _calculateIBW() {
     if (_feet == null || _inches == null) {
       setState(() {
         _result = 'Please enter a valid height.';
         _ibw = null;
+        _healthTip = '';
       });
       return;
     }
@@ -29,6 +31,7 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
       setState(() {
         _result = 'Please enter a valid height.';
         _ibw = null;
+        _healthTip = '';
       });
       return;
     }
@@ -45,6 +48,11 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
     setState(() {
       _ibw = ibw.round(); // Convert to integer
       _result = 'Your Ideal Body Weight is $_ibw kg';
+
+      // Provide one effective tip based on gender
+      _healthTip = _gender == 'Male'
+          ? 'Engage in strength training exercises like weightlifting to build muscle and maintain a healthy weight.'
+          : 'Focus on balanced meals with lean proteins, whole grains, and plenty of vegetables to maintain your ideal weight.';
     });
   }
 
@@ -157,14 +165,15 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
               if (_ibw != null)
                 Center(
                   child: Container(
-                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.symmetric(horizontal: 16),
+                    padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
                         colors: [Colors.teal.shade100, Colors.teal.shade50],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
-                      borderRadius: BorderRadius.circular(12),
+                      borderRadius: BorderRadius.circular(16),
                       boxShadow: [
                         BoxShadow(
                           color: Colors.grey.withOpacity(0.3),
@@ -174,13 +183,34 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
                         ),
                       ],
                     ),
-                    child: Text(
-                      _result,
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(
-                        fontSize: 28, // Larger font size
-                        fontWeight: FontWeight.bold, // Bold text
-                      ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Text(
+                          _result,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                            fontSize: 28, // Larger font size
+                            fontWeight: FontWeight.bold, // Bold text
+                            color: Colors.teal,
+                          ),
+                        ),
+                        const SizedBox(height: 16),
+                        Text(
+                          'Pro Tip:',
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.teal.shade700,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          _healthTip,
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(fontSize: 16, color: Colors.black87),
+                        ),
+                      ],
                     ),
                   ),
                 ),
