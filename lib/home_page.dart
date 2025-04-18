@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'bmi_calculator_screen.dart'; // Import the BMI Calculator screen
+import 'ibw_calculator_screen.dart'; // Import the IBW Calculator screen
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -144,6 +145,11 @@ class HomePage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => const BMICalculatorScreen()),
+            );
+          } else if (label.contains('IBW')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => const IBWCalculatorScreen()),
             );
           } else {
             print('Tapped: $label');
