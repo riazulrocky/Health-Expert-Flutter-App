@@ -53,7 +53,8 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('BMI Calculator'),
+        title: const Text('BMI Calculator', style:
+        TextStyle(color: Colors.white),),
         backgroundColor: Colors.teal,
         elevation: 0,
       ),
