@@ -8,16 +8,34 @@ class BMICalculatorScreen extends StatefulWidget {
 }
 
 class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
-  int _feet = 5; // Default height in feet
-  int _inches = 0; // Default height in inches
-  int _weight = 60; // Default weight in kg (minimum 30kg)
+  int? _feet; // No default value for feet
+  int? _inches; // No default value for inches
+  int? _weight; // No default value for weight
   double? _bmi;
   String _result = '';
   List<String> _healthTips = [];
 
   void _calculateBMI() {
-    final heightInCm = (_feet * 30.48) + (_inches * 2.54); // Convert height from feet and inches to cm
-    final bmi = _weight / ((heightInCm / 100) * (heightInCm / 100));
+    if (_feet == null || _inches == null || _weight == null) {
+      setState(() {
+        _result = 'Please enter valid height and weight.';
+        _bmi = null;
+        _healthTips = [];
+      });
+      return;
+    }
+
+    final heightInCm = (_feet! * 30.48) + (_inches! * 2.54); // Convert height from feet and inches to cm
+    if (heightInCm <= 0 || _weight! <= 0) {
+      setState(() {
+        _result = 'Please enter valid height and weight.';
+        _bmi = null;
+        _healthTips = [];
+      });
+      return;
+    }
+
+    final bmi = _weight! / ((heightInCm / 100) * (heightInCm / 100));
 
     setState(() {
       _bmi = bmi;
@@ -44,7 +62,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
           'Consider consulting a healthcare professional.',
         ];
       } else {
-        _result = 'Overweight';
+        _result = 'Obese';
         _healthTips = [
           'Seek medical advice for a structured weight loss plan.',
           'Engage in regular exercise under supervision.',
@@ -80,86 +98,76 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Height Input (Feet)
+              // Height Input (Feet and Inches Combined)
+              const SizedBox(height: 16), // Perfect spacing before "Height" headline
+              const Text(
+                'Height',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8), // Small spacing between headline and input fields
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Height (ft)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          _feet = int.tryParse(value); // No default value
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Feet',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorText: _feet == null && _result.isNotEmpty ? 'Please enter feet' : null,
+                      ),
+                    ),
                   ),
-                  Text(
-                    '$_feet ft',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          _inches = int.tryParse(value); // No default value
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Inches',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorText: _inches == null && _result.isNotEmpty ? 'Please enter inches' : null,
+                      ),
+                    ),
                   ),
                 ],
-              ),
-              Slider(
-                value: _feet.toDouble(),
-                min: 4.0,
-                max: 7.0,
-                divisions: 3,
-                label: '$_feet ft',
-                onChanged: (value) {
-                  setState(() {
-                    _feet = value.toInt(); // Convert to int
-                  });
-                },
-              ),
-
-              // Height Input (Inches)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Height (in)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '$_inches in',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Slider(
-                value: _inches.toDouble(),
-                min: 0.0,
-                max: 11.0,
-                divisions: 11,
-                label: '$_inches in',
-                onChanged: (value) {
-                  setState(() {
-                    _inches = value.toInt(); // Convert to int
-                  });
-                },
               ),
 
               // Weight Input
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Weight (kg)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '$_weight kg',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
+              const SizedBox(height: 16), // Perfect spacing before "Weight" headline
+              const Text(
+                'Weight',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              Slider(
-                value: _weight.toDouble(), // Slider value is a double
-                min: 30.0, // Minimum weight is 30kg
-                max: 150.0,
-                divisions: 120, // 120 steps for integer values between 30 and 150
-                label: '$_weight kg',
+              const SizedBox(height: 8), // Small spacing between headline and input field
+              TextField(
+                keyboardType: TextInputType.number,
                 onChanged: (value) {
                   setState(() {
-                    _weight = value.toInt(); // Convert to int
+                    _weight = int.tryParse(value); // No default value
                   });
                 },
+                decoration: InputDecoration(
+                  labelText: 'Weight (kg)',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  errorText: _weight == null && _result.isNotEmpty ? 'Please enter weight' : null,
+                ),
               ),
+              const SizedBox(height: 20),
 
               // Calculate Button
               ElevatedButton(
@@ -185,10 +193,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
-                      colors: [
-                        Colors.teal.shade100,
-                        Colors.teal.shade50,
-                      ],
+                      colors: [Colors.teal.shade100, Colors.teal.shade50],
                       begin: Alignment.topLeft,
                       end: Alignment.bottomRight,
                     ),
