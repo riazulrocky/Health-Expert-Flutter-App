@@ -8,14 +8,22 @@ class IBWCalculatorScreen extends StatefulWidget {
 }
 
 class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
-  int _feet = 5; // Default height in feet
-  int _inches = 0; // Default height in inches
+  int? _feet; // No default value for feet
+  int? _inches; // No default value for inches
   String _gender = 'Male'; // Default gender
-  double? _ibw;
+  int? _ibw; // Store IBW as an integer
   String _result = '';
 
   void _calculateIBW() {
-    final heightInInches = (_feet * 12) + _inches;
+    if (_feet == null || _inches == null) {
+      setState(() {
+        _result = 'Please enter a valid height.';
+        _ibw = null;
+      });
+      return;
+    }
+
+    final heightInInches = (_feet! * 12) + _inches!;
 
     if (heightInInches <= 0) {
       setState(() {
@@ -33,9 +41,10 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
       ibw = 45.5 + (2.3 * (heightInInches - 60));
     }
 
+    // Round the IBW to the nearest integer
     setState(() {
-      _ibw = ibw;
-      _result = 'Your Ideal Body Weight is ${_ibw!.toStringAsFixed(2)} kg';
+      _ibw = ibw.round(); // Convert to integer
+      _result = 'Your Ideal Body Weight is $_ibw kg';
     });
   }
 
@@ -73,69 +82,58 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
                     'Gender',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  Row(
-                    children: [
-                      _buildGenderButton('Male'),
-                      const SizedBox(width: 10),
-                      _buildGenderButton('Female'),
-                    ],
-                  ),
+                  _buildGenderSelection(),
                 ],
               ),
+              const Divider(height: 30, thickness: 1),
 
               // Height Input (Feet)
+              const Text(
+                'Height',
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(height: 8),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
-                    'Height (ft)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          _feet = int.tryParse(value);
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Feet',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorText: _feet == null && _result.isNotEmpty ? 'Please enter feet' : null,
+                      ),
+                    ),
                   ),
-                  Text(
-                    '$_feet ft',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  const SizedBox(width: 10),
+                  Expanded(
+                    child: TextField(
+                      keyboardType: TextInputType.number,
+                      onChanged: (value) {
+                        setState(() {
+                          _inches = int.tryParse(value);
+                        });
+                      },
+                      decoration: InputDecoration(
+                        labelText: 'Inches',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                        ),
+                        errorText: _inches == null && _result.isNotEmpty ? 'Please enter inches' : null,
+                      ),
+                    ),
                   ),
                 ],
               ),
-              Slider(
-                value: _feet.toDouble(),
-                min: 4.0,
-                max: 7.0,
-                divisions: 3,
-                label: '$_feet ft',
-                onChanged: (value) {
-                  setState(() {
-                    _feet = value.toInt(); // Convert to int
-                  });
-                },
-              ),
-
-              // Height Input (Inches)
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  const Text(
-                    'Height (in)',
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                  Text(
-                    '$_inches in',
-                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Slider(
-                value: _inches.toDouble(),
-                min: 0.0,
-                max: 11.0,
-                divisions: 11,
-                label: '$_inches in',
-                onChanged: (value) {
-                  setState(() {
-                    _inches = value.toInt(); // Convert to int
-                  });
-                },
-              ),
+              const Divider(height: 30, thickness: 1),
 
               // Calculate Button
               ElevatedButton(
@@ -148,40 +146,39 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
                   ),
                   elevation: 3,
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(Icons.monitor_weight, color: Colors.white),
-                    const SizedBox(width: 8),
-                    const Text(
-                      'Calculate IBW',
-                      style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
-                    ),
-                  ],
+                child: const Text(
+                  'Calculate IBW',
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 20),
 
               // IBW Display
               if (_ibw != null)
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      colors: [Colors.teal.shade100, Colors.teal.shade50],
-                      begin: Alignment.topLeft,
-                      end: Alignment.bottomRight,
-                    ),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _result,
-                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.teal.shade100, Colors.teal.shade50],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomRight,
                       ),
-                    ],
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.grey.withOpacity(0.3),
+                          spreadRadius: 2,
+                          blurRadius: 5,
+                          offset: const Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: Text(
+                      _result,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+                    ),
                   ),
                 ),
             ],
@@ -191,28 +188,42 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
     );
   }
 
-  // Helper method to build gender selection buttons
-  Widget _buildGenderButton(String gender) {
-    final isSelected = _gender == gender;
-
-    return ElevatedButton(
-      onPressed: () {
+  // Helper method to build gender selection toggle buttons
+  Widget _buildGenderSelection() {
+    return ToggleButtons(
+      borderRadius: BorderRadius.circular(8),
+      isSelected: ['Male', 'Female'].map((g) => g == _gender).toList(),
+      onPressed: (index) {
         setState(() {
-          _gender = gender;
+          _gender = index == 0 ? 'Male' : 'Female';
         });
       },
-      style: ElevatedButton.styleFrom(
-        backgroundColor: isSelected ? Colors.teal : Colors.grey[300],
-        foregroundColor: isSelected ? Colors.white : Colors.black,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            'Male',
+            style: TextStyle(
+              color: _gender == 'Male' ? Colors.white : Colors.black,
+            ),
+          ),
         ),
-        minimumSize: const Size(100, 40),
-      ),
-      child: Text(
-        gender,
-        style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
-      ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          child: Text(
+            'Female',
+            style: TextStyle(
+              color: _gender == 'Female' ? Colors.white : Colors.black,
+            ),
+          ),
+        ),
+      ],
+      fillColor: Colors.teal,
+      selectedColor: Colors.white,
+      color: Colors.black,
+      borderWidth: 1,
+      borderColor: Colors.teal,
+      selectedBorderColor: Colors.teal,
     );
   }
 }
