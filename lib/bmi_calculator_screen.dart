@@ -10,7 +10,7 @@ class BMICalculatorScreen extends StatefulWidget {
 class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
   int _feet = 5; // Default height in feet
   int _inches = 0; // Default height in inches
-  double _weight = 60.0; // Default weight in kg
+  int _weight = 60; // Default weight in kg (minimum 30kg)
   double? _bmi;
   String _result = '';
   List<String> _healthTips = [];
@@ -30,7 +30,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
           'Consult a nutritionist for personalized advice.',
         ];
       } else if (bmi >= 18.5 && bmi < 25) {
-        _result = 'Healthy';
+        _result = 'Normal';
         _healthTips = [
           'Maintain a balanced diet and regular exercise.',
           'Stay hydrated and get enough sleep.',
@@ -44,7 +44,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
           'Consider consulting a healthcare professional.',
         ];
       } else {
-        _result = 'Obese';
+        _result = 'Overweight';
         _healthTips = [
           'Seek medical advice for a structured weight loss plan.',
           'Engage in regular exercise under supervision.',
@@ -102,7 +102,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                 label: '$_feet ft',
                 onChanged: (value) {
                   setState(() {
-                    _feet = value.toInt();
+                    _feet = value.toInt(); // Convert to int
                   });
                 },
               ),
@@ -129,7 +129,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                 label: '$_inches in',
                 onChanged: (value) {
                   setState(() {
-                    _inches = value.toInt();
+                    _inches = value.toInt(); // Convert to int
                   });
                 },
               ),
@@ -143,20 +143,20 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                   Text(
-                    '${_weight.toStringAsFixed(1)} kg',
+                    '$_weight kg',
                     style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
                 ],
               ),
               Slider(
-                value: _weight,
-                min: 40.0,
+                value: _weight.toDouble(), // Slider value is a double
+                min: 30.0, // Minimum weight is 30kg
                 max: 150.0,
-                divisions: 110,
-                label: '${_weight.toStringAsFixed(1)} kg',
+                divisions: 120, // 120 steps for integer values between 30 and 150
+                label: '$_weight kg',
                 onChanged: (value) {
                   setState(() {
-                    _weight = value;
+                    _weight = value.toInt(); // Convert to int
                   });
                 },
               ),
@@ -174,7 +174,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                 ),
                 child: const Text(
                   'Calculate BMI',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.white),
                 ),
               ),
               const SizedBox(height: 20),
