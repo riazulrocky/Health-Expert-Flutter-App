@@ -8,15 +8,16 @@ class IBWCalculatorScreen extends StatefulWidget {
 }
 
 class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
-  final TextEditingController _heightController = TextEditingController();
-  String? _gender = 'Male'; // Default gender
+  int _feet = 5; // Default height in feet
+  int _inches = 0; // Default height in inches
+  String _gender = 'Male'; // Default gender
   double? _ibw;
   String _result = '';
 
   void _calculateIBW() {
-    final heightInInches = int.tryParse(_heightController.text);
+    final heightInInches = (_feet * 12) + _inches;
 
-    if (heightInInches == null || heightInInches <= 0) {
+    if (heightInInches <= 0) {
       setState(() {
         _result = 'Please enter a valid height.';
         _ibw = null;
@@ -72,34 +73,69 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
                     'Gender',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                   ),
-                  DropdownButton<String>(
-                    value: _gender,
-                    items: ['Male', 'Female']
-                        .map((gender) => DropdownMenuItem<String>(
-                      value: gender,
-                      child: Text(gender),
-                    ))
-                        .toList(),
-                    onChanged: (value) {
-                      setState(() {
-                        _gender = value;
-                      });
-                    },
+                  Row(
+                    children: [
+                      _buildGenderButton('Male'),
+                      const SizedBox(width: 10),
+                      _buildGenderButton('Female'),
+                    ],
                   ),
                 ],
               ),
 
-              // Height Input
-              TextField(
-                controller: _heightController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Height (in inches)',
-                  border: OutlineInputBorder(),
-                  hintText: 'e.g., 70',
-                ),
+              // Height Input (Feet)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Height (ft)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '$_feet ft',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
-              const SizedBox(height: 20),
+              Slider(
+                value: _feet.toDouble(),
+                min: 4.0,
+                max: 7.0,
+                divisions: 3,
+                label: '$_feet ft',
+                onChanged: (value) {
+                  setState(() {
+                    _feet = value.toInt(); // Convert to int
+                  });
+                },
+              ),
+
+              // Height Input (Inches)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  const Text(
+                    'Height (in)',
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  Text(
+                    '$_inches in',
+                    style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                ],
+              ),
+              Slider(
+                value: _inches.toDouble(),
+                min: 0.0,
+                max: 11.0,
+                divisions: 11,
+                label: '$_inches in',
+                onChanged: (value) {
+                  setState(() {
+                    _inches = value.toInt(); // Convert to int
+                  });
+                },
+              ),
 
               // Calculate Button
               ElevatedButton(
@@ -143,12 +179,7 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
                     children: [
                       Text(
                         _result,
-                        style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 16),
-                      const Text(
-                        'Note: This is based on the Devine Formula.',
-                        style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
+                        style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
                       ),
                     ],
                   ),
@@ -160,9 +191,28 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
     );
   }
 
-  @override
-  void dispose() {
-    _heightController.dispose();
-    super.dispose();
+  // Helper method to build gender selection buttons
+  Widget _buildGenderButton(String gender) {
+    final isSelected = _gender == gender;
+
+    return ElevatedButton(
+      onPressed: () {
+        setState(() {
+          _gender = gender;
+        });
+      },
+      style: ElevatedButton.styleFrom(
+        backgroundColor: isSelected ? Colors.teal : Colors.grey[300],
+        foregroundColor: isSelected ? Colors.white : Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        minimumSize: const Size(100, 40),
+      ),
+      child: Text(
+        gender,
+        style: TextStyle(fontWeight: isSelected ? FontWeight.bold : FontWeight.normal),
+      ),
+    );
   }
 }
