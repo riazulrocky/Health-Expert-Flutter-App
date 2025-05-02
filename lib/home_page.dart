@@ -23,8 +23,10 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Health Expert',),
+        title: const Text('Health Expert',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
         backgroundColor: Colors.teal,
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(
