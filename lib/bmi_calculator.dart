@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class BMICalculatorScreen extends StatefulWidget {
-  const BMICalculatorScreen({Key? key}) : super(key: key);
+  const BMICalculatorScreen({super.key});
 
   @override
   State<BMICalculatorScreen> createState() => _BMICalculatorScreenState();
