@@ -134,7 +134,7 @@ class AmbulancePage extends StatelessWidget {
                       SnackBar(content: Text('Copied ${ambulance['contact']}')),
                     );
                   },
-                  icon: const Icon(Icons.copy, size: 14),
+                  icon: const Icon(Icons.copy, size: 16),
                   label: const Text('Copy'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),

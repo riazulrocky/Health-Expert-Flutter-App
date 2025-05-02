@@ -167,7 +167,7 @@ class HospitalPage extends StatelessWidget {
                       SnackBar(content: Text('Copied ${hospital['contact']}')),
                     );
                   },
-                  icon: const Icon(Icons.copy, size: 14),
+                  icon: const Icon(Icons.copy, size: 17),
                   label: const Text('Copy'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
