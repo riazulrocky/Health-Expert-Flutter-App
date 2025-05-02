@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/blood_bank/blood_bank_page.dart';
 import 'package:health_app/bmi_calculator.dart';
 import 'package:health_app/ibw_calculator.dart';
 import 'package:health_app/hospital_page.dart';
-import 'package:health_app/ambulance_page.dart'; // ✅ Added AmbulancePage import
+import 'package:health_app/ambulance_page.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
+  // ✅ Quick Actions Grid Data
   static const List<Map<String, dynamic>> quickActions = [
     {'icon': Icons.calculate, 'label': 'BMI\nCalculator'},
     {'icon': Icons.line_weight, 'label': 'IBW\nCalculator'},
     {'icon': Icons.local_hospital, 'label': 'Hospital'},
-    {'icon': Icons.airport_shuttle, 'label': 'Ambulance'}, // ✅ Already has 'Ambulance' label
+    {'icon': Icons.airport_shuttle, 'label': 'Ambulance'},
     {'icon': Icons.bloodtype, 'label': 'Blood\nBank'},
     {'icon': Icons.restaurant, 'label': 'Food &\nNutrition'},
     {'icon': Icons.medical_services, 'label': 'Find\nDoctors'},
@@ -23,10 +25,16 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Health Expert',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),),
+        title: const Text(
+          'Health Expert',
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
         backgroundColor: Colors.teal,
         centerTitle: true,
+        elevation: 0,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -45,7 +53,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// Health Tips Section
+// 🩺 Health Tips Section
 class _HealthTipsSection extends StatelessWidget {
   const _HealthTipsSection();
 
@@ -67,40 +75,7 @@ class _HealthTipsSection extends StatelessWidget {
   }
 }
 
-// Quick Actions Grid
-class _QuickActionsGrid extends StatelessWidget {
-  const _QuickActionsGrid();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text('Quick Actions', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-          const SizedBox(height: 10),
-          GridView.builder(
-            shrinkWrap: true,
-            physics: NeverScrollableScrollPhysics(),
-            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 3,
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-            ),
-            itemCount: HomePage.quickActions.length,
-            itemBuilder: (context, index) {
-              final action = HomePage.quickActions[index];
-              return _QuickActionCard(icon: action['icon']!, label: action['label']!);
-            },
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-// Health Tip Card
+// 💡 Health Tip Card
 class _HealthTipCard extends StatelessWidget {
   final String tip;
 
@@ -125,7 +100,40 @@ class _HealthTipCard extends StatelessWidget {
   }
 }
 
-// Quick Action Card
+// 🧱 Quick Actions Grid
+class _QuickActionsGrid extends StatelessWidget {
+  const _QuickActionsGrid();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Quick Actions', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          const SizedBox(height: 10),
+          GridView.builder(
+            shrinkWrap: true,
+            physics: const NeverScrollableScrollPhysics(),
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 3,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+            ),
+            itemCount: HomePage.quickActions.length,
+            itemBuilder: (context, index) {
+              final action = HomePage.quickActions[index];
+              return _QuickActionCard(icon: action['icon']!, label: action['label']!);
+            },
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// 🎯 Quick Action Card with Navigation
 class _QuickActionCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -139,6 +147,7 @@ class _QuickActionCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
         onTap: () {
+          // Navigate based on label
           if (label.contains('BMI')) {
             Navigator.push(
               context,
@@ -154,10 +163,35 @@ class _QuickActionCard extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (_) => HospitalPage()),
             );
-          } else if (label.contains('Ambulance')) { // ✅ Navigate to AmbulancePage
+          } else if (label.contains('Ambulance')) {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => AmbulancePage()),
+            );
+          } else if (label.contains('Blood')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BloodBankPage()),
+            );
+          } else if (label.contains('Find')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
+            );
+          } else if (label.contains('Food')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
+            );
+          } else if (label.contains('Disease')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
+            );
+          } else if (label.contains('Medi')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
             );
           } else {
             print('Tapped: $label');
@@ -179,7 +213,7 @@ class _QuickActionCard extends StatelessWidget {
   }
 }
 
-// Footer Section
+// 🧾 Footer Section
 class _FooterSection extends StatelessWidget {
   const _FooterSection();
 
