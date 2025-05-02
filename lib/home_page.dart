@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/bmi_calculator.dart';
 import 'package:health_app/ibw_calculator.dart';
+import 'package:health_app/ambulance_page.dart'; // ✅ Added import for AmbulancePage
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,7 +15,7 @@ class HomePage extends StatelessWidget {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.white),
         ),
         centerTitle: true,
-        backgroundColor: Colors.teal, // Match the app's theme color
+        backgroundColor: Colors.teal,
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -54,12 +55,12 @@ class HomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 10),
                   GridView.builder(
-                    shrinkWrap: true, // Allows GridView to work inside a SingleChildScrollView
-                    physics: NeverScrollableScrollPhysics(), // Disable scrolling for GridView
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3, // 3 items per row
-                      crossAxisSpacing: 10, // Spacing between columns
-                      mainAxisSpacing: 10, // Spacing between rows
+                      crossAxisCount: 3,
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 10,
                     ),
                     itemCount: quickActions.length,
                     itemBuilder: (context, index) {
@@ -82,21 +83,15 @@ class HomePage extends StatelessWidget {
                   alignment: WrapAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {
-                        // Navigate to settings
-                      },
+                      onPressed: () {},
                       child: Text('Settings', style: TextStyle(color: Colors.teal)),
                     ),
                     TextButton(
-                      onPressed: () {
-                        // Navigate to FAQs
-                      },
+                      onPressed: () {},
                       child: Text('FAQs', style: TextStyle(color: Colors.teal)),
                     ),
                     TextButton(
-                      onPressed: () {
-                        // Navigate to contact
-                      },
+                      onPressed: () {},
                       child: Text('Contact Us', style: TextStyle(color: Colors.teal)),
                     ),
                   ],
@@ -144,14 +139,22 @@ class HomePage extends StatelessWidget {
           if (label.contains('BMI')) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const BMICalculatorScreen()),
+              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
             );
           } else if (label.contains('IBW')) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => const IBWCalculatorScreen()),
+              MaterialPageRoute(builder: (_) => IBWCalculatorScreen()),
             );
-          } else {
+          }
+          // ✅ Added ambulance navigation
+          else if (label.contains('Ambulance')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => AmbulancePage()),
+            );
+          }
+          else {
             print('Tapped: $label');
           }
         },
@@ -182,7 +185,7 @@ final List<Map<String, dynamic>> quickActions = [
   {'icon': Icons.bloodtype, 'label': 'Blood\nBank'},
   {'icon': Icons.search, 'label': 'Medi\nSearch'},
   {'icon': Icons.local_hospital, 'label': 'Hospital'},
-  {'icon': Icons.airport_shuttle, 'label': 'Ambulance'},
+  {'icon': Icons.airport_shuttle, 'label': 'Ambulance'}, // ✅ Already has "Ambulance" label
   {'icon': Icons.medical_services, 'label': 'Find\nDoctors'},
   {'icon': Icons.sick, 'label': 'Disease &\nSymptoms'},
   {'icon': Icons.restaurant, 'label': 'Food &\nNutrition'},
