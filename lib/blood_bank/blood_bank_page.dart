@@ -8,9 +8,9 @@ class BloodBankPage extends StatelessWidget {
   final String _whyDonateTips = '''
 1. One donation can save up to 3 lives
 2. Supports emergency surgeries and cancer patients
-3. Safe and simple procedure
-4. Helps maintain blood supply in hospitals
-5. Only 30 minutes of your time
+3. Stimulates Blood Production
+4. Boosts Mental Well-being
+5. Get a free health check-up
   ''';
 
   final String _beforeTips = '''
