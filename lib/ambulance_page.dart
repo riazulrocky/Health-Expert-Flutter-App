@@ -1,64 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // For Clipboard
+import 'package:flutter/services.dart'; // Required for Clipboard
 
 class AmbulancePage extends StatelessWidget {
-  AmbulancePage({super.key});
-
-  // Emergency banner at the top
-  Widget _buildEmergencyBanner(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: const LinearGradient(
-          colors: [Colors.red, Colors.redAccent],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.red.withOpacity(0.3),
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: ListTile(
-        leading: const Icon(Icons.add_call, color: Colors.white, size: 32),
-        title: const Text(
-          '999',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        subtitle: const Text(
-          'NATIONAL EMERGENCY SERVICE\nCall for ambulance, police, or fire',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white70,
-          ),
-        ),
-        trailing: TextButton.icon(
-          onPressed: () {
-            Clipboard.setData(ClipboardData(text: '999'));
-            ScaffoldMessenger.of(context).showSnackBar(
-              SnackBar(content: Text('Copied 999')),
-            );
-          },
-          icon: Icon(Icons.copy, color: Colors.white, size: 16),
-          label: Text('Copy', style: TextStyle(color: Colors.white)),
-          style: TextButton.styleFrom(
-            backgroundColor: Colors.red.withOpacity(0.3),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
+  AmbulancePage({Key? key}) : super(key: key);
 
   // Static ambulance data
   final List<Map<String, String>> _ambulances = [
@@ -236,7 +180,7 @@ class AmbulancePage extends StatelessWidget {
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white), // ✅ White back arrow
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -248,10 +192,7 @@ class AmbulancePage extends StatelessWidget {
           ),
         ),
         child: ListView(
-          children: [
-            _buildEmergencyBanner(context),
-            ..._ambulances.map((ambulance) => _buildAmbulanceCard(context, ambulance)),
-          ],
+          children: _ambulances.map((ambulance) => _buildAmbulanceCard(context, ambulance)).toList(),
         ),
       ),
     );
