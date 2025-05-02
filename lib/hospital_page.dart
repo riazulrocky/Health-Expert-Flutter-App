@@ -1,99 +1,124 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // Required for Clipboard
 
 class HospitalPage extends StatelessWidget {
-  HospitalPage({Key? key}) : super(key: key);
-
-  // Emergency banner widget
-  Widget _buildEmergencyBanner(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        gradient: const LinearGradient(
-          colors: [Colors.red, Colors.redAccent],
-          begin: Alignment.centerLeft,
-          end: Alignment.centerRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.red.withOpacity(0.3),
-            blurRadius: 6,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: ListTile(
-        leading: const Icon(Icons.add_call, color: Colors.white, size: 32),
-        title: const Text(
-          '999',
-          style: TextStyle(
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
-          ),
-        ),
-        subtitle: const Text(
-          'NATIONAL EMERGENCY SERVICE\nCall for ambulance, police, or fire',
-          style: TextStyle(
-            fontSize: 14,
-            color: Colors.white70,
-          ),
-        ),
-      ),
-    );
-  }
+  HospitalPage({super.key});
 
   // Static hospital data
   final List<Map<String, String>> _hospitals = [
     {
       'name': 'Aalok Health Care Ltd',
       'type': 'Diagnostic Center',
-      'location': '21, Darus Salam Road, Mirpur - 1, Dhaka'
+      'contact': '01915448500',
+      'location': '21, Darus Salam Road, Mirpur 1, Dhaka'
     },
     {
-      'name': 'Apollo Hospitals Dhaka',
-      'type': 'Multi-Specialty Hospital',
-      'location': 'Plot # 81, Block # E, Bashundhara, Dhaka'
+      'name': 'AIMS Hospital Ltd',
+      'type': 'Hospital',
+      'contact': '09678117811',
+      'location': 'Progaty Soroni, Merul Badda, Dhaka'
     },
     {
-      'name': 'Square Hospitals Ltd',
-      'type': 'Private Hospital',
-      'location': '18F, Bir Uttam A.K. Khandaker Road, Dhaka'
+      'name': 'Abeda Memorial Hospital',
+      'type': 'Hospital',
+      'contact': '01758853440',
+      'location': 'Tasar Ali Manson, Medical Gate, Station Road, Tongi, Gazipur'
     },
     {
-      'name': 'Bangladesh Specialized Hospital',
+      'name': 'Advanced Eye Center',
+      'type': 'Hospital',
+      'contact': '01552337567',
+      'location': '5/17, Humayun Road, College Gate, Mohammadpur, Dhaka'
+    },
+    {
+      'name': 'Advertisement Dental Clinic',
+      'type': 'Dental Clinic',
+      'contact': '01741331741',
+      'location': 'Road No. 4, Baridhara, Dhaka'
+    },
+    {
+      'name': 'Ahsania Mission Cancer & General Hospital',
+      'type': 'Hospital',
+      'contact': '029123420',
+      'location': 'Road No. 12, Dhanmondi R/A, Dhaka'
+    },
+    {
+      'name': 'Ahsania Mission Cancer & General Hospital',
+      'type': 'Hospital',
+      'contact': '029008919',
+      'location': 'Section 14, Mirpur, Dhaka 1206'
+    },
+    {
+      'name': 'Ahsania Mission Cancer & General Hospital',
+      'type': 'Hospital',
+      'contact': '028119521',
+      'location': 'Sector 10, Uttara Model Town, Dhaka 1230'
+    },
+    {
+      'name': 'Aiko Dental Clinic',
+      'type': 'Clinic',
+      'contact': '01819249262',
+      'location': 'Road No. 10, Banani, Dhaka 1213'
+    },
+    {
+      'name': 'Al Barakh General Hospital',
+      'type': 'Hospital',
+      'contact': '01924545494',
+      'location': 'Ali Super Market, Near Tongi Model Thana, Tongi, Gazipur'
+    },
+    {
+      'name': 'Al Raji Hospital Pvt.',
       'type': 'General Hospital',
-      'location': 'Nikunja-2, Khilkhet, Dhaka'
+      'contact': '01840756944',
+      'location': 'Farmgate, Dhaka'
     },
     {
-      'name': 'Labaid Specialized Hospital',
-      'type': 'Private Hospital',
-      'location': 'A/2, Kuril, Dhaka'
+      'name': 'Anwer Khan Modern Medical College & Hospital',
+      'type': 'Hospital',
+      'contact': '0258616074',
+      'location': 'Road No. 8, Dhanmondi R/A, Dhaka 1205'
     },
     {
-      'name': 'United Hospital Limited',
-      'type': 'Tertiary Care Hospital',
-      'location': 'Plot 15, Rd No 71, Gulshan-2, Dhaka'
+      'name': 'Badda General Hospital',
+      'type': 'Hospital',
+      'contact': '01714643324',
+      'location': 'Cha-107/2, North Badda, Progoti Sarani, Badda, Dhaka'
     },
     {
-      'name': 'Holy Family Red Crescent Medical College',
-      'type': 'Medical College Hospital',
-      'location': 'Tejgaon, Dhaka'
+      'name': 'Banani Dental Clinic',
+      'type': 'Dental Clinic',
+      'contact': '029894040',
+      'location': 'Road No. 12, Block-E, Banani, Dhaka'
     },
     {
-      'name': 'Ibn Sina Diagnostic Center',
-      'type': 'Diagnostic Center',
-      'location': 'House 15, Road 8/A, Baridhara, Dhaka'
+      'name': 'Bangabondhu Sheikh Mujib Medical University (PG Hospital)',
+      'type': 'Hospital',
+      'contact': '0255165760',
+      'location': 'Shahbagh, Dhaka'
     },
     {
-      'name': 'Evercare Hospital Dhaka',
-      'type': 'Critical Care Hospital',
-      'location': 'Plot 81, Block E, Bashundhara R/A, Dhaka'
+      'name': 'Bangladesh ENT Hospital',
+      'type': 'Hospital',
+      'contact': '01717250667',
+      'location': 'Shobhanbag, Mirpur Road, (Opposite of Rapa Plaza), Dhaka'
     },
     {
-      'name': 'Bangabandhu Sheikh Mujib Medical University',
-      'type': 'Medical University Hospital',
-      'location': 'Shahbag, Dhaka'
+      'name': 'BIRDEM',
+      'type': 'Hospital',
+      'contact': '028616641',
+      'location': 'Kazi Nazrul Avenue, Shahbagh, Dhaka'
+    },
+    {
+      'name': 'Bangladesh Medical College & Hospital',
+      'type': 'General Hospital',
+      'contact': '029118202',
+      'location': 'Road No. 14/A, Dhanmondi, Dhaka'
+    },
+    {
+      'name': 'Bangladesh Psychiatric Care',
+      'type': 'Hospital',
+      'contact': '+8809604604604',
+      'location': 'Shimanta Shambhar Shopping Complex, Pilkhana, Dhaka'
     },
   ];
 
@@ -126,6 +151,36 @@ class HospitalPage extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Row(
+              children: [
+                const Icon(Icons.phone, size: 16, color: Colors.teal),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    hospital['contact']!,
+                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                TextButton.icon(
+                  onPressed: () {
+                    Clipboard.setData(ClipboardData(text: hospital['contact']!));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Copied ${hospital['contact']}')),
+                    );
+                  },
+                  icon: const Icon(Icons.copy, size: 14),
+                  label: const Text('Copy'),
+                  style: TextButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    backgroundColor: Colors.teal.withOpacity(0.1),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const Icon(Icons.location_on, size: 16, color: Colors.teal),
@@ -149,7 +204,7 @@ class HospitalPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Hospitals & Diagnostic Centers',
+          'Hospitals & Clinics',
           style: TextStyle(
             color: Colors.white,
             fontWeight: FontWeight.bold,
@@ -158,7 +213,7 @@ class HospitalPage extends StatelessWidget {
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white), // White back arrow
+        iconTheme: const IconThemeData(color: Colors.white), // ✅ White back arrow
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -171,7 +226,7 @@ class HospitalPage extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            _buildEmergencyBanner(context),
+            // ✅ Removed emergency banner
             ..._hospitals.map((hospital) => _buildHospitalCard(context, hospital)),
           ],
         ),
