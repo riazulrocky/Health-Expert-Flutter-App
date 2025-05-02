@@ -1,33 +1,45 @@
 import 'package:flutter/material.dart';
 
 class BloodBankPage extends StatelessWidget {
-  const BloodBankPage({super.key});
+  // ✅ Remove `const` from the class if you're getting constructor errors
+  BloodBankPage({super.key});
 
-  final List<String> bloodGroups = const ['O+', 'A+', 'B+', 'AB+', 'O-', 'A-', 'B-', 'AB-'];
+  // ✅ Blood groups with const initializer
+  final List<String> bloodGroups = const [
+    'O+',
+    'A+',
+    'B+',
+    'AB+',
+    'O-',
+    'A-',
+    'B-',
+    'AB-'
+  ];
 
-  final String _whyDonateTips = '''
-1. One donation can save up to 3 lives
-2. Supports emergency surgeries and cancer patients
-3. Safe and simple procedure
-4. Helps maintain blood supply in hospitals
-5. Only 30 minutes of your time
-  ''';
+  // ✅ Tip lists with const initializer
+  final List<String> _whyDonateTips = const [
+    'One donation can save up to 3 lives',
+    'Supports emergency surgeries and cancer patients',
+    'Safe and simple procedure',
+    'Helps maintain blood supply in hospitals',
+    'Only 30 minutes of your time',
+  ];
 
-  final String _beforeTips = '''
-1. Stay hydrated before donation
-2. Eat a healthy meal (avoid fatty foods)
-3. Rest well the night before
-4. Inform staff about medications or allergies
-5. Wear comfortable clothing
-  ''';
+  final List<String> _beforeTips = const [
+    'Stay hydrated before donation',
+    'Eat a healthy meal (avoid fatty foods)',
+    'Rest well the night before',
+    'Inform staff about medications or allergies',
+    'Wear comfortable clothing',
+  ];
 
-  final String _afterTips = '''
-1. Drink extra fluids for the next 24 hours
-2. Avoid alcohol for 24 hours
-3. Do not lift heavy objects immediately
-4. Keep gauze on arm for 4–5 hours
-5. Eat iron-rich foods to recover quickly
-  ''';
+  final List<String> _afterTips = const [
+    'Drink extra fluids for the next 24 hours',
+    'Avoid alcohol for 24 hours',
+    'Do not lift heavy objects immediately',
+    'Keep gauze on arm for 4–5 hours',
+    'Eat iron-rich foods to recover quickly',
+  ];
 
   // Build blood group card with no background
   Widget _buildBloodGroupCard(BuildContext context, String bloodType) {
@@ -65,12 +77,12 @@ class BloodBankPage extends StatelessWidget {
     );
   }
 
-  // Build single tip section box
-  Widget _buildTipSection(String title, String tips, IconData icon) {
+  // Build tip section box with bullet points
+  Widget _buildTipSection(String title, List<String> tips, IconData sectionIcon) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: const EdgeInsets.only(bottom: 10), // Reduced from 15 → 10
+      margin: const EdgeInsets.only(bottom: 10),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -78,7 +90,7 @@ class BloodBankPage extends StatelessWidget {
           children: [
             Row(
               children: [
-                Icon(icon, color: Colors.teal, size: 18),
+                Icon(sectionIcon, color: Colors.teal, size: 18),
                 const SizedBox(width: 8),
                 Text(
                   title,
@@ -90,13 +102,31 @@ class BloodBankPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 6), // Reduced from 8
-            Text(
-              tips,
-              style: const TextStyle(fontSize: 13, height: 1.4), // Reduced from 1.5
-            ),
+            const SizedBox(height: 8),
+            // ✅ Safely render bullet points
+            ...tips.map((tip) => _buildDonationTipItem(tip)),
           ],
         ),
+      ),
+    );
+  }
+
+  // Build single tip item with bullet icon
+  Widget _buildDonationTipItem(String tip) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 2),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.fiber_manual_record, size: 10, color: Colors.teal.shade700),
+          const SizedBox(width: 10),
+          Expanded(
+            child: Text(
+              tip,
+              style: const TextStyle(fontSize: 13),
+            ),
+          ),
+        ],
       ),
     );
   }
@@ -122,31 +152,30 @@ class BloodBankPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10), // Reduced from 20 → 10
+              const SizedBox(height: 10),
 
               // Blood Group Grid (4 per row)
               SizedBox(
-                height: 180, // Reduced from 200 → 180
+                height: 180, // ✅ Fixed height for grid
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
-                    crossAxisSpacing: 8, // Reduced from 12 → 8
-                    mainAxisSpacing: 8, // Reduced from 12 → 8
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
                     childAspectRatio: 1.2,
                   ),
                   itemCount: bloodGroups.length,
-                  itemBuilder: (context, index) =>
-                      _buildBloodGroupCard(context, bloodGroups[index]),
+                  itemBuilder: (context, index) => _buildBloodGroupCard(context, bloodGroups[index]),
                 ),
               ),
 
-              const SizedBox(height: 10), // Reduced from 20 → 10
+              const SizedBox(height: 10),
 
               // Tip Sections
               _buildTipSection('Why Donate Blood?', _whyDonateTips, Icons.health_and_safety),
-              const SizedBox(height: 10), // Reduced spacing between sections
+              const SizedBox(height: 10),
               _buildTipSection('Before Donation', _beforeTips, Icons.water_drop),
               const SizedBox(height: 10),
               _buildTipSection('After Donation', _afterTips, Icons.local_drink),
