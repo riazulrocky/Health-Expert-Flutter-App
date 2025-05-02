@@ -29,18 +29,16 @@ class BloodBankPage extends StatelessWidget {
 5. Eat iron-rich foods to recover quickly
   ''';
 
-  // Build compact blood group card
+  // Build blood group card with no background
   Widget _buildBloodGroupCard(BuildContext context, String bloodType) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-        side: BorderSide(
-          color: Colors.teal.shade600,
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10), // Match previous card corners
+        border: Border.all(
+          color: Colors.teal.shade600, // Border only
           width: 1.2,
         ),
       ),
-      color: Colors.teal.withOpacity(0.03),
       child: InkWell(
         onTap: () {
           ScaffoldMessenger.of(context).showSnackBar(
