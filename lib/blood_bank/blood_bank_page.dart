@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 class BloodBankPage extends StatelessWidget {
-  BloodBankPage({super.key});
+  const BloodBankPage({super.key});
 
-  final List<String> bloodGroups = ['O+', 'A+', 'B+', 'AB+', 'O-', 'A-', 'B-', 'AB-'];
+  final List<String> bloodGroups = const ['O+', 'A+', 'B+', 'AB+', 'O-', 'A-', 'B-', 'AB-'];
 
   final String _whyDonateTips = '''
 1. One donation can save up to 3 lives
@@ -33,9 +33,9 @@ class BloodBankPage extends StatelessWidget {
   Widget _buildBloodGroupCard(BuildContext context, String bloodType) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10), // Match previous card corners
+        borderRadius: BorderRadius.circular(10),
         border: Border.all(
-          color: Colors.teal.shade600, // Border only
+          color: Colors.teal.shade600,
           width: 1.2,
         ),
       ),
@@ -122,11 +122,12 @@ class BloodBankPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10),
+              // ✅ Equal spacing before and after blood group grid
+              const SizedBox(height: 20), // ✅ Changed from 10 → 20
 
               // Blood Group Grid (4 per row)
               SizedBox(
-                height: 200, // Fixed height for 2 rows
+                height: 200,
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -134,7 +135,7 @@ class BloodBankPage extends StatelessWidget {
                     crossAxisCount: 4,
                     crossAxisSpacing: 12,
                     mainAxisSpacing: 12,
-                    childAspectRatio: 1.2, // Width/height ratio
+                    childAspectRatio: 1.2,
                   ),
                   itemCount: bloodGroups.length,
                   itemBuilder: (context, index) =>
@@ -142,7 +143,7 @@ class BloodBankPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 20),
+              const SizedBox(height: 20), // ✅ Same spacing after
 
               // Tip Sections
               _buildTipSection('Why Donate Blood?', _whyDonateTips, Icons.health_and_safety),
