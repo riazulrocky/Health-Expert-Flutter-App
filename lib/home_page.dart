@@ -8,7 +8,6 @@ import 'package:health_app/ambulance_page.dart';
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  // ✅ Quick Actions Grid Data
   static const List<Map<String, dynamic>> quickActions = [
     {'icon': Icons.calculate, 'label': 'BMI\nCalculator'},
     {'icon': Icons.line_weight, 'label': 'IBW\nCalculator'},
@@ -53,7 +52,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// 🩺 Health Tips Section
 class _HealthTipsSection extends StatelessWidget {
   const _HealthTipsSection();
 
@@ -75,7 +73,6 @@ class _HealthTipsSection extends StatelessWidget {
   }
 }
 
-// 💡 Health Tip Card
 class _HealthTipCard extends StatelessWidget {
   final String tip;
 
@@ -100,7 +97,6 @@ class _HealthTipCard extends StatelessWidget {
   }
 }
 
-// 🧱 Quick Actions Grid
 class _QuickActionsGrid extends StatelessWidget {
   const _QuickActionsGrid();
 
@@ -133,7 +129,6 @@ class _QuickActionsGrid extends StatelessWidget {
   }
 }
 
-// 🎯 Quick Action Card with Navigation
 class _QuickActionCard extends StatelessWidget {
   final IconData icon;
   final String label;
@@ -213,7 +208,6 @@ class _QuickActionCard extends StatelessWidget {
   }
 }
 
-// 🧾 Footer Section
 class _FooterSection extends StatelessWidget {
   const _FooterSection();
 
