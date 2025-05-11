@@ -29,7 +29,6 @@ class BloodBankPage extends StatelessWidget {
 5. Eat iron-rich foods to recover quickly
   ''';
 
-  // Build blood group card with no background
   Widget _buildBloodGroupCard(BuildContext context, String bloodType) {
     return Container(
       decoration: BoxDecoration(
@@ -65,12 +64,11 @@ class BloodBankPage extends StatelessWidget {
     );
   }
 
-  // Build single tip section box
   Widget _buildTipSection(String title, String tips, IconData icon) {
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      margin: const EdgeInsets.only(bottom: 10), // Reduced from 15 → 10
+      margin: const EdgeInsets.only(bottom: 10),
       child: Padding(
         padding: const EdgeInsets.all(12),
         child: Column(
@@ -90,10 +88,10 @@ class BloodBankPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 6), // Reduced from 8
+            const SizedBox(height: 6),
             Text(
               tips,
-              style: const TextStyle(fontSize: 13, height: 1.4), // Reduced from 1.5
+              style: const TextStyle(fontSize: 13, height: 1.4),
             ),
           ],
         ),
@@ -122,18 +120,17 @@ class BloodBankPage extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const SizedBox(height: 10), // Reduced from 20 → 10
+              const SizedBox(height: 10),
 
-              // Blood Group Grid (4 per row)
               SizedBox(
-                height: 180, // Reduced from 200 → 180
+                height: 180,
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4,
-                    crossAxisSpacing: 8, // Reduced from 12 → 8
-                    mainAxisSpacing: 8, // Reduced from 12 → 8
+                    crossAxisSpacing: 8,
+                    mainAxisSpacing: 8,
                     childAspectRatio: 1.2,
                   ),
                   itemCount: bloodGroups.length,
@@ -142,11 +139,10 @@ class BloodBankPage extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 10), // Reduced from 20 → 10
+              const SizedBox(height: 10),
 
-              // Tip Sections
               _buildTipSection('Why Donate Blood?', _whyDonateTips, Icons.health_and_safety),
-              const SizedBox(height: 10), // Reduced spacing between sections
+              const SizedBox(height: 10),
               _buildTipSection('Before Donation', _beforeTips, Icons.water_drop),
               const SizedBox(height: 10),
               _buildTipSection('After Donation', _afterTips, Icons.local_drink),

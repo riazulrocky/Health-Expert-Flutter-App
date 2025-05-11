@@ -8,12 +8,12 @@ class IBWCalculatorScreen extends StatefulWidget {
 }
 
 class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
-  int? _feet; // No default value for feet
-  int? _inches; // No default value for inches
-  String _gender = 'Male'; // Default gender
-  int? _ibw; // Store IBW as an integer
+  int? _feet;
+  int? _inches;
+  String _gender = 'Male';
+  int? _ibw;
   String _result = '';
-  String _healthTip = ''; // Single health tip
+  String _healthTip = '';
 
   void _calculateIBW() {
     if (_feet == null || _inches == null) {
@@ -36,7 +36,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
       return;
     }
 
-    // Calculate IBW using Devine Formula
     double ibw;
     if (_gender == 'Male') {
       ibw = 50 + (2.3 * (heightInInches - 60));
@@ -44,12 +43,10 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
       ibw = 45.5 + (2.3 * (heightInInches - 60));
     }
 
-    // Round the IBW to the nearest integer
     setState(() {
       _ibw = ibw.round(); // Convert to integer
       _result = 'Your Ideal Body Weight is $_ibw kg';
 
-      // Provide one effective tip based on gender
       _healthTip = _gender == 'Male'
           ? 'Engage in strength training exercises like weightlifting to build muscle and maintain a healthy weight.'
           : 'Focus on balanced meals with lean proteins, whole grains, and plenty of vegetables to maintain your ideal weight.';
@@ -83,7 +80,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Gender Selection
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -96,7 +92,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Height Input (Feet)
               const Text(
                 'Height',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
@@ -144,7 +139,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Calculate Button
               ElevatedButton(
                 onPressed: _calculateIBW,
                 style: ElevatedButton.styleFrom(
@@ -162,7 +156,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
               ),
               const SizedBox(height: 20),
 
-              // IBW Display
               if (_ibw != null)
                 Center(
                   child: Container(
@@ -222,7 +215,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
     );
   }
 
-  // Helper method to build gender selection toggle buttons
   Widget _buildGenderSelection() {
     return ToggleButtons(
       borderRadius: BorderRadius.circular(8),

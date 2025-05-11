@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Required for Clipboard
+import 'package:flutter/services.dart';
 
 class AmbulancePage extends StatelessWidget {
   AmbulancePage({Key? key}) : super(key: key);
 
-  // Static ambulance data
   final List<Map<String, String>> _ambulances = [
     {
       'name': '24 Hours Ambulance Service',
@@ -98,7 +97,6 @@ class AmbulancePage extends StatelessWidget {
     },
   ];
 
-  // Build individual ambulance cards
   Widget _buildAmbulanceCard(BuildContext context, Map<String, String> ambulance) {
     return Card(
       elevation: 2,
@@ -180,7 +178,7 @@ class AmbulancePage extends StatelessWidget {
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white), // ✅ White back arrow
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),

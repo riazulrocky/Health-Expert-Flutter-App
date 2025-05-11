@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // Required for Clipboard
+import 'package:flutter/services.dart';
 
 class HospitalPage extends StatelessWidget {
   HospitalPage({super.key});
 
-  // Static hospital data
   final List<Map<String, String>> _hospitals = [
     {
       'name': 'Aalok Health Care Ltd',
@@ -122,7 +121,6 @@ class HospitalPage extends StatelessWidget {
     },
   ];
 
-  // Build individual hospital cards
   Widget _buildHospitalCard(BuildContext context, Map<String, String> hospital) {
     return Card(
       elevation: 2,
@@ -213,7 +211,7 @@ class HospitalPage extends StatelessWidget {
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white), // ✅ White back arrow
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -226,7 +224,6 @@ class HospitalPage extends StatelessWidget {
         ),
         child: ListView(
           children: [
-            // ✅ Removed emergency banner
             ..._hospitals.map((hospital) => _buildHospitalCard(context, hospital)),
           ],
         ),

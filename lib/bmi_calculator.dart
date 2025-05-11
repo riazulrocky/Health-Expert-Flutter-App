@@ -8,9 +8,9 @@ class BMICalculatorScreen extends StatefulWidget {
 }
 
 class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
-  int? _feet; // No default value for feet
-  int? _inches; // No default value for inches
-  int? _weight; // No default value for weight
+  int? _feet;
+  int? _inches;
+  int? _weight;
   double? _bmi;
   String _result = '';
   List<String> _healthTips = [];
@@ -25,7 +25,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
       return;
     }
 
-    final heightInCm = (_feet! * 30.48) + (_inches! * 2.54); // Convert height from feet and inches to cm
+    final heightInCm = (_feet! * 30.48) + (_inches! * 2.54);
     if (heightInCm <= 0 || _weight! <= 0) {
       setState(() {
         _result = 'Please enter valid height and weight.';
@@ -99,13 +99,12 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const Divider(height: 30, thickness: 1),
 
-              // Height Input (Feet and Inches Combined)
-              const SizedBox(height: 16), // Perfect spacing before "Height" headline
+              const SizedBox(height: 16),
               const Text(
                 'Height',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8), // Small spacing between headline and input fields
+              const SizedBox(height: 8),
               Row(
                 children: [
                   Expanded(
@@ -113,7 +112,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         setState(() {
-                          _feet = int.tryParse(value); // No default value
+                          _feet = int.tryParse(value);
                         });
                       },
                       decoration: InputDecoration(
@@ -131,7 +130,7 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                       keyboardType: TextInputType.number,
                       onChanged: (value) {
                         setState(() {
-                          _inches = int.tryParse(value); // No default value
+                          _inches = int.tryParse(value);
                         });
                       },
                       decoration: InputDecoration(
@@ -146,18 +145,17 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
                 ],
               ),
 
-              // Weight Input
-              const SizedBox(height: 16), // Perfect spacing before "Weight" headline
+              const SizedBox(height: 16),
               const Text(
                 'Weight',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 8), // Small spacing between headline and input field
+              const SizedBox(height: 8),
               TextField(
                 keyboardType: TextInputType.number,
                 onChanged: (value) {
                   setState(() {
-                    _weight = int.tryParse(value); // No default value
+                    _weight = int.tryParse(value);
                   });
                 },
                 decoration: InputDecoration(
@@ -170,7 +168,6 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const SizedBox(height: 20),
 
-              // Calculate Button
               ElevatedButton(
                 onPressed: _calculateBMI,
                 style: ElevatedButton.styleFrom(
@@ -188,7 +185,6 @@ class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
               ),
               const SizedBox(height: 20),
 
-              // BMI Display
               if (_bmi != null)
                 Container(
                   padding: const EdgeInsets.all(16),
