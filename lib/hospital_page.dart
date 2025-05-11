@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart'; // ✅ Add this import
 
 class HospitalPage extends StatelessWidget {
   HospitalPage({super.key});
@@ -121,6 +121,7 @@ class HospitalPage extends StatelessWidget {
     },
   ];
 
+  // ✅ Build hospital card with call button
   Widget _buildHospitalCard(BuildContext context, Map<String, String> hospital) {
     return Card(
       elevation: 2,
@@ -158,15 +159,21 @@ class HospitalPage extends StatelessWidget {
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ),
+                // ✅ Replaced Copy Button with Call Button
                 TextButton.icon(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: hospital['contact']!));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Copied ${hospital['contact']}')),
-                    );
+                  onPressed: () async {
+                    final number = hospital['contact']!;
+                    final Uri launchUri = Uri.parse('tel:$number');
+                    if (await canLaunchUrl(launchUri)) {
+                      await launchUrl(launchUri); // Opens dial pad with number
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Could not dial $number')),
+                      );
+                    }
                   },
-                  icon: const Icon(Icons.copy, size: 16),
-                  label: const Text('Copy'),
+                  icon: const Icon(Icons.call, size: 16),
+                  label: const Text('Call'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     backgroundColor: Colors.teal.withOpacity(0.1),
