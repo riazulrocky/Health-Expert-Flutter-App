@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:url_launcher/url_launcher.dart'; // ✅ Replaced with url_launcher
 
 class AmbulancePage extends StatelessWidget {
   AmbulancePage({Key? key}) : super(key: key);
@@ -114,6 +114,15 @@ class AmbulancePage extends StatelessWidget {
                 fontWeight: FontWeight.bold,
               ),
             ),
+            const SizedBox(height: 6),
+            Text(
+              ambulance['type'] ?? 'Ambulance Service',
+              style: TextStyle(
+                fontSize: 14,
+                color: Colors.teal.shade700,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
             const SizedBox(height: 8),
             Row(
               children: [
@@ -125,15 +134,21 @@ class AmbulancePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ),
+                // ✅ Call Button (replaces Copy)
                 TextButton.icon(
-                  onPressed: () {
-                    Clipboard.setData(ClipboardData(text: ambulance['contact']!));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Copied ${ambulance['contact']}')),
-                    );
+                  onPressed: () async {
+                    final number = ambulance['contact']!;
+                    final Uri launchUri = Uri.parse('tel:$number');
+                    if (await canLaunchUrl(launchUri)) {
+                      await launchUrl(launchUri); // Opens dial pad
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text('Could not dial $number')),
+                      );
+                    }
                   },
-                  icon: const Icon(Icons.copy, size: 16),
-                  label: const Text('Copy'),
+                  icon: const Icon(Icons.call, size: 16),
+                  label: const Text('Call'),
                   style: TextButton.styleFrom(
                     padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     backgroundColor: Colors.teal.withOpacity(0.1),
