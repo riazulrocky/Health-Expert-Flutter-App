@@ -4,6 +4,9 @@ import 'package:health_app/bmi_calculator.dart';
 import 'package:health_app/ibw_calculator.dart';
 import 'package:health_app/hospital_page.dart';
 import 'package:health_app/ambulance_page.dart';
+import 'package:health_app/find_doctors_page.dart';
+
+import 'find_doctors/find_doctors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -24,13 +27,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Health Expert',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const Text('Health Expert', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
@@ -120,7 +117,7 @@ class _QuickActionsGrid extends StatelessWidget {
             itemCount: HomePage.quickActions.length,
             itemBuilder: (context, index) {
               final action = HomePage.quickActions[index];
-              return _QuickActionCard(icon: action['icon']!, label: action['label']!);
+              return _QuickActionCard(icon: action['icon'], label: action['label']);
             },
           ),
         ],
@@ -142,54 +139,24 @@ class _QuickActionCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: InkWell(
         onTap: () {
-          // Navigate based on label
           if (label.contains('BMI')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
           } else if (label.contains('IBW')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => IBWCalculatorScreen()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => IBWCalculatorScreen()));
           } else if (label.contains('Hospital')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => HospitalPage()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => HospitalPage()));
           } else if (label.contains('Ambulance')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => AmbulancePage()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => AmbulancePage()));
           } else if (label.contains('Blood')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => BloodBankPage()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodBankPage()));
           } else if (label.contains('Find')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => FindDoctorsPage()));
           } else if (label.contains('Food')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
           } else if (label.contains('Disease')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
           } else if (label.contains('Medi')) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
-            );
-          } else {
-            print('Tapped: $label');
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
           }
         },
         child: Padding(
@@ -198,7 +165,7 @@ class _QuickActionCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Icon(icon, size: 30, color: Colors.teal),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
             ],
           ),
