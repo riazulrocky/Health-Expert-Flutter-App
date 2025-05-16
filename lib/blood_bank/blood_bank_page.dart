@@ -43,21 +43,21 @@ class BloodBankPage extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (bloodType == 'O+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorOPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorOPlusPage()));
           } else if (bloodType == 'A+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorAPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorAPlusPage()));
           } else if (bloodType == 'B+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorBPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorBPlusPage()));
           } else if (bloodType == 'AB+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorABPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorABPlusPage()));
           } else if (bloodType == 'O-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorONegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorONegativePage()));
           } else if (bloodType == 'A-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorANegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorANegativePage()));
           } else if (bloodType == 'B-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorBNegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorBNegativePage()));
           } else if (bloodType == 'AB-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorABNegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorABNegativePage()));
           }
         },
         child: Padding(
