@@ -123,6 +123,8 @@ class BloodBankPage extends StatelessWidget {
         title: const Text('Blood Bank', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         centerTitle: true,
+        elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
