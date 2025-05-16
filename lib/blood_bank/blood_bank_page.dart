@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/blood_bank/O%20positive.dart';
 
 class BloodBankPage extends StatelessWidget {
   const BloodBankPage({super.key});
@@ -29,6 +30,7 @@ class BloodBankPage extends StatelessWidget {
 5. Eat iron-rich foods to recover quickly
   ''';
 
+  // Build blood group card with navigation for O+
   Widget _buildBloodGroupCard(BuildContext context, String bloodType) {
     return Container(
       decoration: BoxDecoration(
@@ -40,9 +42,20 @@ class BloodBankPage extends StatelessWidget {
       ),
       child: InkWell(
         onTap: () {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Tapped $bloodType')),
-          );
+          if (bloodType == 'O+') {
+            // ✅ Navigate to O+ donor page
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (_) => BloodDonorOPlusPage(),
+              ),
+            );
+          } else {
+            // Show tap message for other blood groups
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('Tapped $bloodType')),
+            );
+          }
         },
         child: Padding(
           padding: const EdgeInsets.all(8),
@@ -64,6 +77,7 @@ class BloodBankPage extends StatelessWidget {
     );
   }
 
+  // Build tip section box
   Widget _buildTipSection(String title, String tips, IconData icon) {
     return Card(
       elevation: 2,
@@ -122,6 +136,7 @@ class BloodBankPage extends StatelessWidget {
             children: [
               const SizedBox(height: 10),
 
+              // Blood Group Grid (4 per row)
               SizedBox(
                 height: 180,
                 child: GridView.builder(
@@ -141,6 +156,7 @@ class BloodBankPage extends StatelessWidget {
 
               const SizedBox(height: 10),
 
+              // Tip Sections
               _buildTipSection('Why Donate Blood?', _whyDonateTips, Icons.health_and_safety),
               const SizedBox(height: 10),
               _buildTipSection('Before Donation', _beforeTips, Icons.water_drop),
