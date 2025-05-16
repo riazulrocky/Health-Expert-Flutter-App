@@ -331,6 +331,7 @@ Widget _buildDonorPage(BuildContext context, String bloodType, List<Map<String, 
       title: Text('$bloodType Donors', style: const TextStyle(color: Colors.white)),
       backgroundColor: Colors.teal,
       centerTitle: true,
+      iconTheme: IconThemeData(color: Colors.white),
     ),
     body: Container(
       padding: const EdgeInsets.all(16),
