@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart'; // Required for calling
+import 'package:url_launcher/url_launcher.dart';
 
 class BloodBankPage extends StatelessWidget {
   const BloodBankPage({super.key});
@@ -30,34 +30,30 @@ class BloodBankPage extends StatelessWidget {
 5. Eat iron-rich foods to recover quickly
   ''';
 
-  // Build blood group card with dynamic navigation
   Widget _buildBloodGroupCard(BuildContext context, String bloodType) {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
-        border: Border.all(
-          color: Colors.teal.shade600,
-          width: 1.2,
-        ),
+        border: Border.all(color: Colors.teal.shade600, width: 1.2),
       ),
       child: InkWell(
         onTap: () {
           if (bloodType == 'O+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorOPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorOPlusPage()));
           } else if (bloodType == 'A+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorAPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorAPlusPage()));
           } else if (bloodType == 'B+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorBPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorBPlusPage()));
           } else if (bloodType == 'AB+') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorABPlusPage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorABPlusPage()));
           } else if (bloodType == 'O-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorONegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorONegativePage()));
           } else if (bloodType == 'A-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorANegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorANegativePage()));
           } else if (bloodType == 'B-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorBNegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorBNegativePage()));
           } else if (bloodType == 'AB-') {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodDonorABNegativePage()));
+            Navigator.push(context, MaterialPageRoute(builder: (_) => const BloodDonorABNegativePage()));
           }
         },
         child: Padding(
@@ -80,7 +76,6 @@ class BloodBankPage extends StatelessWidget {
     );
   }
 
-  // Build tip section box
   Widget _buildTipSection(String title, String tips, IconData icon) {
     return Card(
       elevation: 2,
@@ -94,7 +89,7 @@ class BloodBankPage extends StatelessWidget {
             Row(
               children: [
                 Icon(icon, color: Colors.teal, size: 18),
-                const SizedBox(width: 8),
+                SizedBox(width: 8),
                 Text(
                   title,
                   style: TextStyle(
@@ -124,7 +119,7 @@ class BloodBankPage extends StatelessWidget {
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
-        iconTheme: IconThemeData(color: Colors.white),
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
         padding: const EdgeInsets.all(16),
@@ -140,8 +135,6 @@ class BloodBankPage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 10),
-
-              // Blood Group Grid (4 per row)
               SizedBox(
                 height: 180,
                 child: GridView.builder(
@@ -158,10 +151,7 @@ class BloodBankPage extends StatelessWidget {
                       _buildBloodGroupCard(context, bloodGroups[index]),
                 ),
               ),
-
               const SizedBox(height: 10),
-
-              // Tip Sections
               _buildTipSection('Why Donate Blood?', whyDonateTips, Icons.health_and_safety),
               const SizedBox(height: 10),
               _buildTipSection('Before Donation', beforeTips, Icons.water_drop),
@@ -175,19 +165,19 @@ class BloodBankPage extends StatelessWidget {
   }
 }
 
-// ✅ Individual donor pages
+// ✅ Individual donor pages (cleaned)
 class BloodDonorOPlusPage extends StatelessWidget {
   const BloodDonorOPlusPage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Tariqul Hasan', 'contact': '01836020692', 'gender': 'Male', 'age': '23', 'donations': '1', 'lastDonated': '3 months ago'},
-    const {'name': 'Farida Akter', 'contact': '01712456789', 'gender': 'Female', 'age': '28', 'donations': '5', 'lastDonated': '1 month ago'},
-    const {'name': 'Shahidul Islam', 'contact': '01911987654', 'gender': 'Male', 'age': '32', 'donations': '3', 'lastDonated': '6 months ago'},
-    const {'name': 'Rina Begum', 'contact': '01912345678', 'gender': 'Female', 'age': '27', 'donations': '1', 'lastDonated': '6 months ago'},
-    const {'name': 'Abdul Momin', 'contact': '01711223344', 'gender': 'Male', 'age': '35', 'donations': '10', 'lastDonated': '3 weeks ago'},
-    const {'name': 'Naznin Akter', 'contact': '01911334455', 'gender': 'Female', 'age': '25', 'donations': '2', 'lastDonated': '2 weeks ago'},
-    const {'name': 'Sujan Rahman', 'contact': '01711556677', 'gender': 'Male', 'age': '33', 'donations': '7', 'lastDonated': '10 days ago'},
-    const {'name': 'Sumaiya Kalam', 'contact': '01811002233', 'gender': 'Female', 'age': '22', 'donations': '1', 'lastDonated': '2 weeks ago'},
+    {'name': 'Tariqul Hasan', 'contact': '01836020692', 'gender': 'Male', 'age': '23'},
+    {'name': 'Farida Akter', 'contact': '01712456789', 'gender': 'Female', 'age': '28'},
+    {'name': 'Shahidul Islam', 'contact': '01911987654', 'gender': 'Male', 'age': '32'},
+    {'name': 'Rina Begum', 'contact': '01912345678', 'gender': 'Female', 'age': '27'},
+    {'name': 'Abdul Momin', 'contact': '01711223344', 'gender': 'Male', 'age': '35'},
+    {'name': 'Naznin Akter', 'contact': '01911334455', 'gender': 'Female', 'age': '25'},
+    {'name': 'Sujan Rahman', 'contact': '01711556677', 'gender': 'Male', 'age': '33'},
+    {'name': 'Sumaiya Kalam', 'contact': '01811002233', 'gender': 'Female', 'age': '22'},
   ];
 
   @override
@@ -200,16 +190,16 @@ class BloodDonorAPlusPage extends StatelessWidget {
   const BloodDonorAPlusPage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Rakib Hassan', 'contact': '01911887766', 'gender': 'Male', 'age': '27', 'donations': '2', 'lastDonated': '5 months ago'},
-    const {'name': 'Jannatul Ferdous', 'contact': '01911667788', 'gender': 'Female', 'age': '26', 'donations': '3', 'lastDonated': '8 months ago'},
-    const {'name': 'Mahmud Hasan', 'contact': '01611234567', 'gender': 'Male', 'age': '29', 'donations': '6', 'lastDonated': '1 month ago'},
-    const {'name': 'Taslima Akter', 'contact': '01811990011', 'gender': 'Female', 'age': '34', 'donations': '9', 'lastDonated': '3 months ago'},
-    const {'name': 'Imran Ahmed', 'contact': '01911444555', 'gender': 'Male', 'age': '24', 'donations': '2', 'lastDonated': '2 months ago'},
-    const {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38', 'donations': '12', 'lastDonated': '1 month ago'},
-    const {'name': 'Farzana Khatun', 'contact': '01911223344', 'gender': 'Female', 'age': '29', 'donations': '3', 'lastDonated': '2 months ago'},
-    const {'name': 'Shirin Akter', 'contact': '01711888999', 'gender': 'Female', 'age': '31', 'donations': '4', 'lastDonated': '5 months ago'},
-    const {'name': 'Rashed Khan', 'contact': '01611778899', 'gender': 'Male', 'age': '26', 'donations': '2', 'lastDonated': '1 week ago'},
-    const {'name': 'Ayesha Akter', 'contact': '01713579246', 'gender': 'Female', 'age': '30', 'donations': '4', 'lastDonated': '1 month ago'},
+    {'name': 'Rakib Hassan', 'contact': '01911887766', 'gender': 'Male', 'age': '27'},
+    {'name': 'Jannatul Ferdous', 'contact': '01911667788', 'gender': 'Female', 'age': '26'},
+    {'name': 'Mahmud Hasan', 'contact': '01611234567', 'gender': 'Male', 'age': '29'},
+    {'name': 'Taslima Akter', 'contact': '01811990011', 'gender': 'Female', 'age': '34'},
+    {'name': 'Imran Ahmed', 'contact': '01911444555', 'gender': 'Male', 'age': '24'},
+    {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38'},
+    {'name': 'Farzana Khatun', 'contact': '01911223344', 'gender': 'Female', 'age': '29'},
+    {'name': 'Shirin Akter', 'contact': '01711888999', 'gender': 'Female', 'age': '31'},
+    {'name': 'Rashed Khan', 'contact': '01611778899', 'gender': 'Male', 'age': '26'},
+    {'name': 'Ayesha Akter', 'contact': '01713579246', 'gender': 'Female', 'age': '30'},
   ];
 
   @override
@@ -222,12 +212,12 @@ class BloodDonorBPlusPage extends StatelessWidget {
   const BloodDonorBPlusPage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Nusrat Jahan', 'contact': '01712456789', 'gender': 'Female', 'age': '28', 'donations': '5', 'lastDonated': '1 month ago'},
-    const {'name': 'Zahid Islam', 'contact': '01911444555', 'gender': 'Male', 'age': '24', 'donations': '2', 'lastDonated': '2 months ago'},
-    const {'name': 'Tariqul Hasan', 'contact': '01836020692', 'gender': 'Male', 'age': '23', 'donations': '1', 'lastDonated': '3 months ago'},
-    const {'name': 'Shahidul Islam', 'contact': '01811223344', 'gender': 'Male', 'age': '41', 'donations': '8', 'lastDonated': '2 months ago'},
-    const {'name': 'Shirin Akter', 'contact': '01711888999', 'gender': 'Female', 'age': '31', 'donations': '4', 'lastDonated': '5 months ago'},
-    const {'name': 'Sumaiya Kalam', 'contact': '01811002233', 'gender': 'Female', 'age': '22', 'donations': '1', 'lastDonated': '2 weeks ago'},
+    {'name': 'Nusrat Jahan', 'contact': '01712456789', 'gender': 'Female', 'age': '28'},
+    {'name': 'Zahid Islam', 'contact': '01911444555', 'gender': 'Male', 'age': '24'},
+    {'name': 'Tariqul Hasan', 'contact': '01836020692', 'gender': 'Male', 'age': '23'},
+    {'name': 'Shahidul Islam', 'contact': '01811223344', 'gender': 'Male', 'age': '41'},
+    {'name': 'Shirin Akter', 'contact': '01711888999', 'gender': 'Female', 'age': '31'},
+    {'name': 'Sumaiya Kalam', 'contact': '01811002233', 'gender': 'Female', 'age': '22'},
   ];
 
   @override
@@ -240,12 +230,12 @@ class BloodDonorABPlusPage extends StatelessWidget {
   const BloodDonorABPlusPage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Tasnim Ahmed', 'contact': '01911122334', 'gender': 'Male', 'age': '25', 'donations': '3', 'lastDonated': '10 days ago'},
-    const {'name': 'Sadia Rahman', 'contact': '01711234567', 'gender': 'Female', 'age': '27', 'donations': '1', 'lastDonated': '6 months ago'},
-    const {'name': 'Rashed Ahmed', 'contact': '01611778899', 'gender': 'Male', 'age': '26', 'donations': '2', 'lastDonated': '1 week ago'},
-    const {'name': 'Nafisa Akter', 'contact': '01811990011', 'gender': 'Female', 'age': '34', 'donations': '9', 'lastDonated': '3 months ago'},
-    const {'name': 'Kamrul Islam', 'contact': '01911444555', 'gender': 'Male', 'age': '24', 'donations': '2', 'lastDonated': '2 months ago'},
-    const {'name': 'Farida Yasmin', 'contact': '01912345678', 'gender': 'Female', 'age': '25', 'donations': '2', 'lastDonated': '2 weeks ago'},
+    {'name': 'Tasnim Ahmed', 'contact': '01911122334', 'gender': 'Male', 'age': '25'},
+    {'name': 'Sadia Rahman', 'contact': '01711234567', 'gender': 'Female', 'age': '27'},
+    {'name': 'Rashed Ahmed', 'contact': '01611778899', 'gender': 'Male', 'age': '26'},
+    {'name': 'Nafisa Akter', 'contact': '01811990011', 'gender': 'Female', 'age': '34'},
+    {'name': 'Kamrul Islam', 'contact': '01911444555', 'gender': 'Male', 'age': '24'},
+    {'name': 'Farida Yasmin', 'contact': '01912345678', 'gender': 'Female', 'age': '25'},
   ];
 
   @override
@@ -258,12 +248,12 @@ class BloodDonorONegativePage extends StatelessWidget {
   const BloodDonorONegativePage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Shahid Ahmed', 'contact': '01711556677', 'gender': 'Male', 'age': '33', 'donations': '7', 'lastDonated': '10 days ago'},
-    const {'name': 'Taslima Khatun', 'contact': '01811990011', 'gender': 'Female', 'age': '34', 'donations': '9', 'lastDonated': '3 months ago'},
-    const {'name': 'Imran Ahmed', 'contact': '01911987654', 'gender': 'Male', 'age': '32', 'donations': '3', 'lastDonated': '6 months ago'},
-    const {'name': 'Rina Begum', 'contact': '01912345678', 'gender': 'Female', 'age': '27', 'donations': '1', 'lastDonated': '6 months ago'},
-    const {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38', 'donations': '12', 'lastDonated': '1 month ago'},
-    const {'name': 'Rakib Hassan', 'contact': '01911887766', 'gender': 'Male', 'age': '27', 'donations': '2', 'lastDonated': '5 months ago'},
+    {'name': 'Shahid Ahmed', 'contact': '01711556677', 'gender': 'Male', 'age': '33'},
+    {'name': 'Taslima Khatun', 'contact': '01811990011', 'gender': 'Female', 'age': '34'},
+    {'name': 'Imran Ahmed', 'contact': '01911987654', 'gender': 'Male', 'age': '32'},
+    {'name': 'Rina Begum', 'contact': '01912345678', 'gender': 'Female', 'age': '27'},
+    {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38'},
+    {'name': 'Rakib Hassan', 'contact': '01911887766', 'gender': 'Male', 'age': '27'},
   ];
 
   @override
@@ -276,12 +266,12 @@ class BloodDonorANegativePage extends StatelessWidget {
   const BloodDonorANegativePage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Farida Yasmin', 'contact': '01912345678', 'gender': 'Female', 'age': '25', 'donations': '2', 'lastDonated': '2 weeks ago'},
-    const {'name': 'Tasnim Ahmed', 'contact': '01911122334', 'gender': 'Male', 'age': '25', 'donations': '3', 'lastDonated': '10 days ago'},
-    const {'name': 'Abdul Kalam', 'contact': '01711123456', 'gender': 'Male', 'age': '35', 'donations': '10', 'lastDonated': '3 weeks ago'},
-    const {'name': 'Shahidul Islam', 'contact': '01811223344', 'gender': 'Male', 'age': '41', 'donations': '8', 'lastDonated': '2 months ago'},
-    const {'name': 'Nusrat Jahan', 'contact': '01712456789', 'gender': 'Female', 'age': '28', 'donations': '5', 'lastDonated': '1 month ago'},
-    const {'name': 'Rina Begum', 'contact': '01911223344', 'gender': 'Female', 'age': '30', 'donations': '1', 'lastDonated': '8 months ago'},
+    {'name': 'Farida Yasmin', 'contact': '01912345678', 'gender': 'Female', 'age': '25'},
+    {'name': 'Tasnim Ahmed', 'contact': '01911122334', 'gender': 'Male', 'age': '25'},
+    {'name': 'Abdul Kalam', 'contact': '01711123456', 'gender': 'Male', 'age': '35'},
+    {'name': 'Shahidul Islam', 'contact': '01811223344', 'gender': 'Male', 'age': '41'},
+    {'name': 'Nusrat Jahan', 'contact': '01712456789', 'gender': 'Female', 'age': '28'},
+    {'name': 'Rina Begum', 'contact': '01911223344', 'gender': 'Female', 'age': '30'},
   ];
 
   @override
@@ -294,12 +284,12 @@ class BloodDonorBNegativePage extends StatelessWidget {
   const BloodDonorBNegativePage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Abdullah Al Mamun', 'contact': '01911122334', 'gender': 'Male', 'age': '30', 'donations': '5', 'lastDonated': '2 weeks ago'},
-    const {'name': 'Mehedi Hasan', 'contact': '01611778899', 'gender': 'Male', 'age': '26', 'donations': '2', 'lastDonated': '1 week ago'},
-    const {'name': 'Shirin Akter', 'contact': '01811990011', 'gender': 'Female', 'age': '34', 'donations': '9', 'lastDonated': '3 months ago'},
-    const {'name': 'Tariqul Islam', 'contact': '01836020692', 'gender': 'Male', 'age': '23', 'donations': '1', 'lastDonated': '3 months ago'},
-    const {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38', 'donations': '12', 'lastDonated': '1 month ago'},
-    const {'name': 'Shahid Rahman', 'contact': '01611234567', 'gender': 'Male', 'age': '29', 'donations': '6', 'lastDonated': '1 week ago'},
+    {'name': 'Abdullah Al Mamun', 'contact': '01911122334', 'gender': 'Male', 'age': '30'},
+    {'name': 'Mehedi Hasan', 'contact': '01611778899', 'gender': 'Male', 'age': '26'},
+    {'name': 'Shirin Akter', 'contact': '01811990011', 'gender': 'Female', 'age': '34'},
+    {'name': 'Tariqul Islam', 'contact': '01836020692', 'gender': 'Male', 'age': '23'},
+    {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38'},
+    {'name': 'Shahid Rahman', 'contact': '01611234567', 'gender': 'Male', 'age': '29'},
   ];
 
   @override
@@ -312,12 +302,12 @@ class BloodDonorABNegativePage extends StatelessWidget {
   const BloodDonorABNegativePage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _donors = const [
-    const {'name': 'Rashed Ahmed', 'contact': '01611778899', 'gender': 'Male', 'age': '26', 'donations': '2', 'lastDonated': '1 week ago'},
-    const {'name': 'Tasnim Ahmed', 'contact': '01911122334', 'gender': 'Male', 'age': '25', 'donations': '3', 'lastDonated': '10 days ago'},
-    const {'name': 'Shahidul Islam', 'contact': '01811223344', 'gender': 'Male', 'age': '41', 'donations': '8', 'lastDonated': '2 months ago'},
-    const {'name': 'Naznin Akter', 'contact': '01911334455', 'gender': 'Female', 'age': '25', 'donations': '2', 'lastDonated': '2 weeks ago'},
-    const {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38', 'donations': '12', 'lastDonated': '1 month ago'},
-    const {'name': 'Rakib Hassan', 'contact': '01911887766', 'gender': 'Male', 'age': '27', 'donations': '2', 'lastDonated': '5 months ago'},
+    {'name': 'Rashed Ahmed', 'contact': '01611778899', 'gender': 'Male', 'age': '26'},
+    {'name': 'Tasnim Ahmed', 'contact': '01911122334', 'gender': 'Male', 'age': '25'},
+    {'name': 'Shahidul Islam', 'contact': '01811223344', 'gender': 'Male', 'age': '41'},
+    {'name': 'Naznin Akter', 'contact': '01911334455', 'gender': 'Female', 'age': '25'},
+    {'name': 'Asaduzzaman', 'contact': '01711445566', 'gender': 'Male', 'age': '38'},
+    {'name': 'Rakib Hassan', 'contact': '01911887766', 'gender': 'Male', 'age': '27'},
   ];
 
   @override
@@ -326,7 +316,7 @@ class BloodDonorABNegativePage extends StatelessWidget {
   }
 }
 
-// ✅ Reusable donor page builder
+// ✅ Reusable donor page
 Widget _buildDonorPage(BuildContext context, String bloodType, List<Map<String, String>> donors) {
   return Scaffold(
     appBar: AppBar(
@@ -351,7 +341,7 @@ Widget _buildDonorPage(BuildContext context, String bloodType, List<Map<String, 
   );
 }
 
-// ✅ Reusable donor card with call button
+// ✅ Clean donor card (no donation history)
 Widget _buildDonorCard(BuildContext context, Map<String, String> donor) {
   return Card(
     elevation: 2,
@@ -373,7 +363,7 @@ Widget _buildDonorCard(BuildContext context, Map<String, String> donor) {
           Row(
             children: [
               const Icon(Icons.person, size: 16, color: Colors.teal),
-              const SizedBox(width: 6),
+              SizedBox(width: 6),
               Text(
                 '${donor['gender']} | ${donor['age']} years',
                 style: TextStyle(
@@ -400,7 +390,7 @@ Widget _buildDonorCard(BuildContext context, Map<String, String> donor) {
                   final number = donor['contact']!;
                   final Uri launchUri = Uri.parse('tel:$number');
                   if (await canLaunchUrl(launchUri)) {
-                    await launchUrl(launchUri); // Opens dial pad
+                    await launchUrl(launchUri);
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Could not dial $number')),
@@ -415,19 +405,6 @@ Widget _buildDonorCard(BuildContext context, Map<String, String> donor) {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 8),
-          Row(
-            children: [
-              const Icon(Icons.calendar_month, size: 16, color: Colors.teal),
-              const SizedBox(width: 6),
-              Expanded(
-                child: Text(
-                  'Donated ${donor['donations']} time(s) | Last: ${donor['lastDonated']}',
-                  style: const TextStyle(fontSize: 13, color: Colors.grey),
                 ),
               ),
             ],
