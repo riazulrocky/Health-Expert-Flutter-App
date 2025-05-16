@@ -6,17 +6,17 @@ class FindDoctorsPage extends StatelessWidget {
 
   final List<Map<String, dynamic>> _bodyParts = [
     {'name': 'Abdomen', 'icon': Icons.health_and_safety},
-    {'name': 'Arm', 'icon': Icons.local_hospital},
-    {'name': 'Back', 'icon': Icons.medical_services},
+    {'name': 'Arm', 'icon': Icons.pan_tool},
+    {'name': 'Back', 'icon': Icons.accessibility_new},
     {'name': 'Kidney', 'icon': Icons.healing},
     {'name': 'Chest', 'icon': Icons.favorite},
     {'name': 'Ear, Nose, Throat', 'icon': Icons.hearing},
     {'name': 'Eye', 'icon': Icons.remove_red_eye},
     {'name': 'Face & Mouth', 'icon': Icons.face},
     {'name': 'Genitals', 'icon': Icons.wc},
-    {'name': 'Head', 'icon': Icons.headset_mic},
+    {'name': 'Head', 'icon': Icons.face_6},
     {'name': 'Leg & Foot', 'icon': Icons.directions_run},
-    {'name': 'Skin', 'icon': Icons.abc},
+    {'name': 'Skin', 'icon': Icons.spa},
     {'name': 'Tooth', 'icon': Icons.local_drink},
   ];
 
