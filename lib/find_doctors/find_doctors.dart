@@ -36,7 +36,7 @@ class FindDoctorsPage extends StatelessWidget {
         // Navigate to BMICalculatorScreen
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (_) => const IBWCalculatorScreen()),
+          MaterialPageRoute(builder: (_) => AbdomenPage()),
         );
       },
     );
