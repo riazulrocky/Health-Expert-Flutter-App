@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/ibw_calculator.dart';
 
+import 'abdomen.dart';
+
 class FindDoctorsPage extends StatelessWidget {
   FindDoctorsPage({super.key});
 

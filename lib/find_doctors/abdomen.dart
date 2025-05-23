@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Required for calling
 
 class AbdomenPage extends StatelessWidget {
-  const AbdomenPage({Key? key}) : super(key: key);
+  AbdomenPage({Key? key}) : super(key: key);
 
   final List<Map<String, String>> _doctors = [
     {
