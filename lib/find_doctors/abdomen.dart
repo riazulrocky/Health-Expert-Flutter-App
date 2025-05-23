@@ -105,22 +105,47 @@ class AbdomenPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 6),
-            Text(
-              doctor['qualification']!,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.teal.shade700,
-                fontWeight: FontWeight.w600,
-              ),
+            Row(
+              children: [
+                const Icon(Icons.person, size: 16, color: Colors.teal),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    '${doctor['qualification']}, ${doctor['specialty']}',
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.teal.shade700,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
-            Text(
-              doctor['specialty']!,
-              style: const TextStyle(
-                fontSize: 14,
-                color: Colors.teal,
-                fontWeight: FontWeight.bold,
-              ),
+            Row(
+              children: [
+                const Icon(Icons.location_on, size: 16, color: Colors.teal),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    doctor['location']!,
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Row(
+              children: [
+                const Icon(Icons.local_hospital, size: 16, color: Colors.teal),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    doctor['clinic']!,
+                    style: const TextStyle(fontSize: 14, color: Colors.grey),
+                  ),
+                ),
+              ],
             ),
             const SizedBox(height: 8),
             Row(
@@ -138,7 +163,7 @@ class AbdomenPage extends StatelessWidget {
                     final number = doctor['contact']!;
                     final Uri launchUri = Uri.parse('tel:$number');
                     if (await canLaunchUrl(launchUri)) {
-                      await launchUrl(launchUri); // Opens dial pad
+                      await launchUrl(launchUri);
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Could not dial $number')),
@@ -157,20 +182,6 @@ class AbdomenPage extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.location_on, size: 16, color: Colors.teal),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    '${doctor['location']}\n${doctor['clinic']}',
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),
@@ -181,29 +192,18 @@ class AbdomenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          'Abdomen Specialists',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
+        title: const Text('Abdomen Specialists', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.teal.shade50, Colors.white],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Column(
+            children: _doctors.map((doctor) => _buildDoctorCard(context, doctor)).toList(),
           ),
-        ),
-        child: ListView(
-          children: _doctors.map((doctor) => _buildDoctorCard(context, doctor)).toList(),
         ),
       ),
     );
