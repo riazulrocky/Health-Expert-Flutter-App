@@ -239,7 +239,7 @@ class _FooterSection extends StatelessWidget {
           children: const [
             TextButton(
               onPressed: null,
-              child: Text('Contact Us', style: TextStyle(color: Colors.teal)),
+              child: Text('Contact us', style: TextStyle(color: Colors.teal)),
             ),
           ],
         ),
