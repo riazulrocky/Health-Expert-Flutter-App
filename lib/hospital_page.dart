@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart'; // ✅ Add this import
+import 'package:url_launcher/url_launcher.dart'; // Required for calling
 
-class HospitalPage extends StatelessWidget {
-  HospitalPage({super.key});
+class HospitalPage extends StatefulWidget {
+  const HospitalPage({Key? key}) : super(key: key);
 
+  @override
+  State<HospitalPage> createState() => _HospitalPageState();
+}
+
+class _HospitalPageState extends State<HospitalPage> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
   final List<Map<String, String>> _hospitals = [
     {
       'name': 'Aalok Health Care Ltd',
@@ -121,6 +128,24 @@ class HospitalPage extends StatelessWidget {
     },
   ];
 
+  List<Map<String, String>> get filteredHospitals {
+    if (_searchQuery.isEmpty) {
+      return _hospitals;
+    }
+    final query = _searchQuery.toLowerCase();
+    return _hospitals.where((item) {
+      return item['name']!.toLowerCase().contains(query) ||
+          item['location']!.toLowerCase().contains(query) ||
+          item['type']!.toLowerCase().contains(query);
+    }).toList();
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   // ✅ Build hospital card with call button
   Widget _buildHospitalCard(BuildContext context, Map<String, String> hospital) {
     return Card(
@@ -159,13 +184,13 @@ class HospitalPage extends StatelessWidget {
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                   ),
                 ),
-                // ✅ Replaced Copy Button with Call Button
+                // ✅ Call Button
                 TextButton.icon(
                   onPressed: () async {
                     final number = hospital['contact']!;
                     final Uri launchUri = Uri.parse('tel:$number');
                     if (await canLaunchUrl(launchUri)) {
-                      await launchUrl(launchUri); // Opens dial pad with number
+                      await launchUrl(launchUri); // Opens dial pad
                     } else {
                       ScaffoldMessenger.of(context).showSnackBar(
                         SnackBar(content: Text('Could not dial $number')),
@@ -210,10 +235,7 @@ class HospitalPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Hospitals & Clinics',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.teal,
         centerTitle: true,
@@ -221,17 +243,46 @@ class HospitalPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
+        color: Colors.white,
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.teal.shade50, Colors.white],
-          ),
-        ),
-        child: ListView(
+        child: Column(
           children: [
-            ..._hospitals.map((hospital) => _buildHospitalCard(context, hospital)),
+            // ✅ Search Bar
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.teal.shade50,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.teal.shade100),
+              ),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (query) {
+                  setState(() {
+                    _searchQuery = query;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search by name, location, or type...',
+                  prefixIcon: const Icon(Icons.search, color: Colors.teal),
+                  border: InputBorder.none,
+                  contentPadding: const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                  hintStyle: TextStyle(color: Colors.teal.shade300),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // ✅ Hospital List
+            Expanded(
+              child: filteredHospitals.isEmpty
+                  ? const Center(child: Text('No hospital found'))
+                  : ListView.builder(
+                itemCount: filteredHospitals.length,
+                itemBuilder: (context, index) {
+                  final hospital = filteredHospitals[index];
+                  return _buildHospitalCard(context, hospital);
+                },
+              ),
+            ),
           ],
         ),
       ),
