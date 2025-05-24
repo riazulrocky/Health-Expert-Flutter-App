@@ -6,6 +6,7 @@ import 'package:health_app/find_doctors/eye.dart';
 import 'package:health_app/find_doctors/face_mouth.dart';
 import 'package:health_app/find_doctors/genital.dart';
 import 'package:health_app/find_doctors/head.dart';
+import 'package:health_app/find_doctors/leg_foot.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
@@ -96,6 +97,11 @@ class FindDoctorsPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => HeadPage()),
+            );
+          } else if (name == 'Leg & Foot') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => LegFootPage()),
             );
           } else {
             Navigator.push(
