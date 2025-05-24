@@ -5,6 +5,7 @@ import 'package:health_app/find_doctors/ent_page.dart';
 import 'package:health_app/find_doctors/eye.dart';
 import 'package:health_app/find_doctors/face_mouth.dart';
 import 'package:health_app/find_doctors/genital.dart';
+import 'package:health_app/find_doctors/head.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
@@ -90,6 +91,11 @@ class FindDoctorsPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => GenitalPage()),
+            );
+          } else if (name == 'Head') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => HeadPage()),
             );
           } else {
             Navigator.push(
