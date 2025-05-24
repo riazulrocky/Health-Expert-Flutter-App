@@ -8,6 +8,7 @@ import 'package:health_app/find_doctors/genital.dart';
 import 'package:health_app/find_doctors/head.dart';
 import 'package:health_app/find_doctors/leg_foot.dart';
 import 'package:health_app/find_doctors/skin.dart';
+import 'package:health_app/find_doctors/tooth.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
@@ -108,6 +109,11 @@ class FindDoctorsPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => SkinPage()),
+            );
+          } else if (name == 'Tooth') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => ToothPage()),
             );
           } else {
             Navigator.push(
