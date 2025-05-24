@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:url_launcher/url_launcher.dart'; // ✅ Replaced with url_launcher
+import 'package:url_launcher/url_launcher.dart'; // Required for calling
 
-class AmbulancePage extends StatelessWidget {
-  AmbulancePage({Key? key}) : super(key: key);
+class AmbulancePage extends StatefulWidget {
+  const AmbulancePage({Key? key}) : super(key: key);
 
+  @override
+  State<AmbulancePage> createState() => _AmbulancePageState();
+}
+
+class _AmbulancePageState extends State<AmbulancePage> {
+  final TextEditingController _searchController = TextEditingController();
+  String _searchQuery = '';
   final List<Map<String, String>> _ambulances = [
     {
       'name': '24 Hours Ambulance Service',
@@ -78,105 +85,51 @@ class AmbulancePage extends StatelessWidget {
     {
       'name': 'Desh Ambulance Service',
       'contact': '01790509607',
-      'location': '82, East Ahmed Nagor, Mirpur - 1216\nDhaka, Mirpur'
+      'location': '82, East Ahmed Nagor, Mirpur - 1216\nMirpur, Dhaka'
     },
     {
       'name': 'Dipu Ambulance Service',
       'contact': '01616343956',
-      'location': 'Enam Medical College, Savar\nDhaka, Savar'
+      'location': 'Enam Medical College, Savar\nSavar, Dhaka'
     },
     {
       'name': 'Health Labs Ltd. Ambulance',
       'contact': '01783800800',
-      'location': '1041/2A, North Shewrapara, Mirpur\nDhaka, Shewrapara'
+      'location': '1041/2A, North Shewrapara, Mirpur\nShewrapara, Dhaka'
     },
     {
       'name': 'Impulse Hospital Ambulance',
       'contact': '01877000010',
-      'location': '304/E, Bir Uttam Mir Shawkat Sarak\nDhaka, Tejgaon'
+      'location': '304/E, Bir Uttam Mir Shawkat Sarak\nTejgaon, Dhaka'
     },
   ];
 
-  Widget _buildAmbulanceCard(BuildContext context, Map<String, String> ambulance) {
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              ambulance['name']!,
-              style: const TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-            const SizedBox(height: 6),
-            Text(
-              ambulance['type'] ?? 'Ambulance Service',
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.teal.shade700,
-                fontWeight: FontWeight.w600,
-              ),
-            ),
-            const SizedBox(height: 8),
-            Row(
-              children: [
-                const Icon(Icons.phone, size: 16, color: Colors.teal),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    ambulance['contact']!,
-                    style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
-                  ),
-                ),
-                // ✅ Call Button (replaces Copy)
-                TextButton.icon(
-                  onPressed: () async {
-                    final number = ambulance['contact']!;
-                    final Uri launchUri = Uri.parse('tel:$number');
-                    if (await canLaunchUrl(launchUri)) {
-                      await launchUrl(launchUri); // Opens dial pad
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text('Could not dial $number')),
-                      );
-                    }
-                  },
-                  icon: const Icon(Icons.call, size: 16),
-                  label: const Text('Call'),
-                  style: TextButton.styleFrom(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    backgroundColor: Colors.teal.withOpacity(0.1),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const Icon(Icons.location_on, size: 16, color: Colors.teal),
-                const SizedBox(width: 6),
-                Expanded(
-                  child: Text(
-                    ambulance['location']!,
-                    style: const TextStyle(fontSize: 14, color: Colors.grey),
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+  List<Map<String, String>> get filteredAmbulances {
+    if (_searchQuery.isEmpty) {
+      return _ambulances;
+    }
+    final query = _searchQuery.toLowerCase();
+    return _ambulances.where((ambulance) {
+      return ambulance['name']!.toLowerCase().contains(query) ||
+          ambulance['location']!.toLowerCase().contains(query);
+    }).toList();
+  }
+
+  Future<void> _makeCall(String number) async {
+    final Uri launchUri = Uri.parse('tel:$number');
+    if (await canLaunchUrl(launchUri)) {
+      await launchUrl(launchUri);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Could not dial $number')),
+      );
+    }
+  }
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
   }
 
   @override
@@ -185,10 +138,7 @@ class AmbulancePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text(
           'Ambulance Services',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.bold,
-          ),
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
         ),
         backgroundColor: Colors.teal,
         centerTitle: true,
@@ -196,16 +146,125 @@ class AmbulancePage extends StatelessWidget {
         iconTheme: const IconThemeData(color: Colors.white),
       ),
       body: Container(
+        color: Colors.white,
         padding: const EdgeInsets.all(16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [Colors.teal.shade50, Colors.white],
-          ),
-        ),
-        child: ListView(
-          children: _ambulances.map((ambulance) => _buildAmbulanceCard(context, ambulance)).toList(),
+        child: Column(
+          children: [
+            // ✅ Search Bar
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.teal.shade50,
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(color: Colors.teal.shade100),
+              ),
+              child: TextField(
+                controller: _searchController,
+                onChanged: (query) {
+                  setState(() {
+                    _searchQuery = query;
+                  });
+                },
+                decoration: InputDecoration(
+                  hintText: 'Search by name or location...',
+                  prefixIcon: const Icon(Icons.search, color: Colors.teal),
+                  border: InputBorder.none,
+                  contentPadding:
+                  const EdgeInsets.symmetric(vertical: 14, horizontal: 12),
+                  hintStyle: TextStyle(color: Colors.teal.shade300),
+                ),
+              ),
+            ),
+            const SizedBox(height: 16),
+            // ✅ Ambulance List
+            Expanded(
+              child: filteredAmbulances.isEmpty
+                  ? const Center(child: Text('No ambulance found'))
+                  : ListView.builder(
+                itemCount: filteredAmbulances.length,
+                itemBuilder: (context, index) {
+                  final ambulance = filteredAmbulances[index];
+                  return Card(
+                    elevation: 2,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(12)),
+                    margin:
+                    const EdgeInsets.symmetric(vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment:
+                        CrossAxisAlignment.start,
+                        children: [
+                          // Name
+                          Text(
+                            ambulance['name']!,
+                            style: const TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          const SizedBox(height: 6),
+                          // Contact
+                          Row(
+                            children: [
+                              const Icon(Icons.phone,
+                                  size: 16, color: Colors.teal),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  ambulance['contact']!,
+                                  style: const TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.bold),
+                                ),
+                              ),
+                              // ✅ Call Button
+                              TextButton.icon(
+                                onPressed: () =>
+                                    _makeCall(ambulance['contact']!),
+                                icon: const Icon(Icons.call, size: 16),
+                                label: const Text('Call'),
+                                style: TextButton.styleFrom(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 8, vertical: 4),
+                                  backgroundColor:
+                                  Colors.teal.withOpacity(0.1),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          // Location
+                          Row(
+                            crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                            children: [
+                              const Icon(Icons.location_on,
+                                  size: 16, color: Colors.teal),
+                              const SizedBox(width: 6),
+                              Expanded(
+                                child: Text(
+                                  ambulance['location']!,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.grey,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
