@@ -4,9 +4,9 @@ import 'package:health_app/bmi_calculator.dart';
 import 'package:health_app/ibw_calculator.dart';
 import 'package:health_app/hospital_page.dart';
 import 'package:health_app/ambulance_page.dart';
-import 'package:health_app/find_doctors_page.dart';
 
-import 'find_doctors/find_doctors.dart';
+import 'find_doctors/ai_chat.dart';
+import 'find_doctors/find_doctors.dart'; // Import your AI Chat page
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -20,14 +20,17 @@ class HomePage extends StatelessWidget {
     {'icon': Icons.restaurant, 'label': 'Food &\nNutrition'},
     {'icon': Icons.medical_services, 'label': 'Find\nDoctors'},
     {'icon': Icons.sick, 'label': 'Disease &\nSymptoms'},
-    {'icon': Icons.search, 'label': 'Medi\nSearch'},
+    {'icon': Icons.smart_toy, 'label': 'AI\nChat'}, // ✅ Replaced Medi Search
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Health Expert', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text(
+          'Health Expert',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+        ),
         backgroundColor: Colors.teal,
         centerTitle: true,
         elevation: 0,
@@ -59,7 +62,10 @@ class _HealthTipsSection extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Health Tips', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(
+            'Health Tips',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
           _HealthTipCard(tip: 'Drink at least 8 glasses of water daily.'),
           _HealthTipCard(tip: 'Include more fruits and vegetables in your diet.'),
@@ -104,7 +110,10 @@ class _QuickActionsGrid extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Quick Actions', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+          Text(
+            'Quick Actions',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
           const SizedBox(height: 10),
           GridView.builder(
             shrinkWrap: true,
@@ -117,7 +126,10 @@ class _QuickActionsGrid extends StatelessWidget {
             itemCount: HomePage.quickActions.length,
             itemBuilder: (context, index) {
               final action = HomePage.quickActions[index];
-              return _QuickActionCard(icon: action['icon'], label: action['label']);
+              return _QuickActionCard(
+                icon: action['icon'],
+                label: action['label'],
+              );
             },
           ),
         ],
@@ -140,23 +152,45 @@ class _QuickActionCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           if (label.contains('BMI')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BMICalculatorScreen()),
+            );
           } else if (label.contains('IBW')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => IBWCalculatorScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => IBWCalculatorScreen()),
+            );
           } else if (label.contains('Hospital')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => HospitalPage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => HospitalPage()),
+            );
           } else if (label.contains('Ambulance')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => AmbulancePage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => AmbulancePage()),
+            );
           } else if (label.contains('Blood')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BloodBankPage()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BloodBankPage()),
+            );
           } else if (label.contains('Find')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => FindDoctorsPage()));
-          } else if (label.contains('Food')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
-          } else if (label.contains('Disease')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
-          } else if (label.contains('Medi')) {
-            Navigator.push(context, MaterialPageRoute(builder: (_) => BMICalculatorScreen()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => FindDoctorsPage()),
+            );
+          } else if (label.contains('AI')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => AiChatPage()), // ✅ Navigate to AI Chat
+            );
+          } else {
+            // Placeholder for unimplemented features
+            ScaffoldMessenger.of(context).showSnackBar(
+              SnackBar(content: Text('$label is under development')),
+            );
           }
         },
         child: Padding(
@@ -166,7 +200,11 @@ class _QuickActionCard extends StatelessWidget {
             children: [
               Icon(icon, size: 30, color: Colors.teal),
               const SizedBox(height: 8),
-              Text(label, textAlign: TextAlign.center, style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold)),
+              Text(
+                label,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 12, fontWeight: FontWeight.bold),
+              ),
             ],
           ),
         ),
@@ -187,14 +225,6 @@ class _FooterSection extends StatelessWidget {
           spacing: 16,
           alignment: WrapAlignment.center,
           children: const [
-            TextButton(
-              onPressed: null,
-              child: Text('Settings', style: TextStyle(color: Colors.teal)),
-            ),
-            TextButton(
-              onPressed: null,
-              child: Text('FAQs', style: TextStyle(color: Colors.teal)),
-            ),
             TextButton(
               onPressed: null,
               child: Text('Contact Us', style: TextStyle(color: Colors.teal)),
