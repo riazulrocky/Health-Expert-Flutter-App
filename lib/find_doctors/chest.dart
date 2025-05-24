@@ -1,89 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Required for calling
 
-class AbdomenPage extends StatelessWidget {
-  AbdomenPage({super.key});
+class ChestPage extends StatelessWidget {
+  ChestPage({super.key});
 
   final List<Map<String, String>> _doctors = [
     {
       'name': 'Dr. A B M Abdul Matin',
-      'qualification': 'MBBS (DU), FCPS (Surgery)',
+      'qualification': 'MBBS (DU)',
       'specialty': 'Surgeon',
-      'contact': '01711609616',
-      'location': 'Kalyanpur Bus Stand, Mirpur Road, Dhaka',
-      'clinic': 'Ibn Sina Diagnostic & Consultation Center'
-    },
-    {
-      'name': 'Prof.Dr A B M Abdullah',
-      'qualification': 'MBBS, MRCP(UK), FRCP',
-      'specialty': 'Medicine Specialist',
-      'contact': '029660015',
-      'location': 'Green Road',
-      'clinic': 'Central Hospital Limited'
-    },
-    {
-      'name': 'Prof.Dr A A Motaleb',
-      'qualification': 'MBBS, DTM&H, FRCP',
-      'specialty': 'Medicine Specialist',
-      'contact': '01711390984',
-      'location': 'Armanitola',
-      'clinic': 'Kalikunnesa General Hospital'
-    },
-    {
-      'name': 'Dr. A B Siddique',
-      'qualification': 'MBBS, BCS(health), MD',
-      'specialty': 'Internal Medicine Specialist',
-      'contact': '01711457226',
-      'location': 'Hospital Road',
-      'clinic': 'Abid Consultation Center'
-    },
-    {
-      'name': 'Dr. A K M Kaisarul Islam',
-      'qualification': 'MBBS, MD, CCD',
-      'specialty': 'Medicine & Diabetics Specialist',
-      'contact': '01736686347',
-      'location': 'Mitford',
-      'clinic': 'Medisun Hospital'
-    },
-    {
-      'name': 'Dr. A K Azad',
-      'qualification': 'MBBS, DEM, FCPS, MACE',
-      'specialty': 'Medicine & Diabetics Specialist',
-      'contact': '010615',
-      'location': 'Dhanmondi',
-      'clinic': 'Ibn Sina Diagnostic & Imaging Center'
-    },
-    {
-      'name': 'Prof. Dr. A H M Rowshon',
-      'qualification': 'MBBS, FCPS, MD',
-      'specialty': 'Medicine & Gastroenterologist',
-      'contact': '029666480',
-      'location': 'Dhanmondi',
-      'clinic': 'Popular Diagnostic Center Ltd.'
+      'contact': '01776304620',
+      'location': 'Kalyanpur Bus Stand',
+      'clinic': 'City Hospital Limited'
     },
     {
       'name': 'Dr. A K M Abdul Hamid',
-      'qualification': 'MBBS, FCGP, PGT, CC Ulra',
+      'qualification': 'MSSB, FCGP, PGT(Surgery)',
       'specialty': 'General Surgeon',
-      'contact': '092162943',
-      'location': 'Akur Takur Para',
-      'clinic': 'Dholesshori Hospital'
+      'contact': '01711485979',
+      'location': 'Zilla Sadar Road, Akur Takur',
+      'clinic': 'Care Diagnostic Center'
+    },
+    {
+      'name': 'Dr. A K M Abul Hossain',
+      'qualification': 'MBBS, MCPS(Surgery)',
+      'specialty': 'Surgeon',
+      'contact': '01711545118',
+      'location': 'Farmgate, Dhaka',
+      'clinic': 'Dhaka Community Hospital'
     },
     {
       'name': 'Dr. A S M Alamgir',
-      'qualification': 'MBBS, MS',
+      'qualification': 'MBBS, MS(Child Surgery)',
       'specialty': 'Surgeon',
       'contact': '01711697241',
-      'location': 'Mitford',
-      'clinic': 'New Dhaka Modern Clinic'
+      'location': 'Mitford, Dhaka',
+      'clinic': 'National Institute of Ophthalmology (NIO)'
     },
     {
-      'name': 'Dr. A S M Nazmul Islam',
-      'qualification': 'MBBS, BCS(health), MD(BSMMU)',
-      'specialty': 'Gastroenterologist',
-      'contact': '027343759',
-      'location': 'Mitford',
-      'clinic': 'Medisun Hospital'
+      'name': 'Assoc. Prof. Dr. A S M Hasanuzzaman',
+      'qualification': 'MBBS, MS(Child Surgery)',
+      'specialty': 'General Surgeon',
+      'contact': '01711544314',
+      'location': 'Jatrabari, Dhaka',
+      'clinic': 'Bangabondhu Sheikh Mujib Medical University (BSMMU)'
+    },
+    {
+      'name': 'Assoc. Prof. Dr. A Z M Mahfuzur Rahman',
+      'qualification': 'MBBS, MS(Surgery)',
+      'specialty': 'General Surgeon',
+      'contact': '01839995566',
+      'location': 'Shyamoli, Dhaka',
+      'clinic': 'Shaheed Suhrawardy Medical College & Hospital, Dhaka (SSMCH)'
+    },
+    {
+      'name': 'Prof Dr. A E Md Abdul Wasi',
+      'qualification': 'MBBS, FCPS(Surgery)',
+      'specialty': 'General Surgeon',
+      'contact': '01778455951',
+      'location': 'Sonadanga, Khulna',
+      'clinic': 'Combined Military Hospital (CMH)'
+    },
+    {
+      'name': 'Dr. A H M Mushiur Rahaman',
+      'qualification': 'MBBS, DS(Vienna)',
+      'specialty': 'General Surgeon',
+      'contact': '5173445',
+      'location': 'Sheujgari, Bogura',
+      'clinic': 'Uttara Adhunik Medical College'
+    },
+    {
+      'name': 'Prof. Dr. A M Shahidullah',
+      'qualification': 'MBBS, FCPS(Surgery), FICS',
+      'specialty': 'General Surgeon',
+      'contact': '01678344200',
+      'location': 'Moghbazar, Dhaka',
+      'clinic': 'United Hospital Limited'
+    },
+    {
+      'name': 'Prof. Dr. A Z M Mostaque Hossain',
+      'qualification': 'MBBS, FCPS',
+      'specialty': 'Surgeon',
+      'contact': '10652',
+      'location': 'Dhanmondi, Dhaka',
+      'clinic': 'Bangladesh Medical College & Hospital'
     },
   ];
 
@@ -107,7 +107,7 @@ class AbdomenPage extends StatelessWidget {
             const SizedBox(height: 6),
             Row(
               children: [
-                const Icon(Icons.person, size: 16, color: Colors.teal),
+                Icon(Icons.medical_services, size: 16, color: Colors.teal.shade700),
                 const SizedBox(width: 6),
                 Expanded(
                   child: Text(
@@ -117,6 +117,8 @@ class AbdomenPage extends StatelessWidget {
                       color: Colors.teal.shade700,
                       fontWeight: FontWeight.w600,
                     ),
+                    maxLines: 2,
+                    softWrap: true,
                   ),
                 ),
               ],
@@ -130,6 +132,8 @@ class AbdomenPage extends StatelessWidget {
                   child: Text(
                     doctor['location']!,
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    maxLines: 2,
+                    softWrap: true,
                   ),
                 ),
               ],
@@ -143,6 +147,8 @@ class AbdomenPage extends StatelessWidget {
                   child: Text(
                     doctor['clinic']!,
                     style: const TextStyle(fontSize: 14, color: Colors.grey),
+                    maxLines: 2,
+                    softWrap: true,
                   ),
                 ),
               ],
@@ -156,6 +162,9 @@ class AbdomenPage extends StatelessWidget {
                   child: Text(
                     doctor['contact']!,
                     style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                    softWrap: false,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 TextButton.icon(
@@ -192,15 +201,17 @@ class AbdomenPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Abdomen Specialists', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+        title: const Text('Chest Specialists', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         centerTitle: true,
-        elevation: 0,
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
+      body: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: const BoxDecoration(
+          color: Colors.white,
+        ),
+        child: SingleChildScrollView(
           child: Column(
             children: _doctors.map((doctor) => _buildDoctorCard(context, doctor)).toList(),
           ),

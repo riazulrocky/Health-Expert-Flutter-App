@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Required for calling
 
 class ArmPage extends StatelessWidget {
-  ArmPage({Key? key}) : super(key: key);
+  ArmPage({super.key});
 
   final List<Map<String, String>> _doctors = [
     {

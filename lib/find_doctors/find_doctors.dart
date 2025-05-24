@@ -7,7 +7,7 @@ import 'arm.dart';
 import 'kidney.dart'; // Final ArmPage
 
 class FindDoctorsPage extends StatelessWidget {
-  FindDoctorsPage({Key? key}) : super(key: key);
+  FindDoctorsPage({super.key});
 
   final List<Map<String, dynamic>> _bodyParts = [
     {'name': 'Abdomen', 'icon': Icons.health_and_safety},
