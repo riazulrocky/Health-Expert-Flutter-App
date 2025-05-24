@@ -115,11 +115,6 @@ class FindDoctorsPage extends StatelessWidget {
               context,
               MaterialPageRoute(builder: (_) => ToothPage()),
             );
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (_) => IBWCalculatorScreen()),
-            );
           }
         }
     );
