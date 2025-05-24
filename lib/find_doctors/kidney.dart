@@ -1,89 +1,89 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart'; // Required for calling
 
-class BackPage extends StatelessWidget {
-  BackPage({super.key});
+class KidneyPage extends StatelessWidget {
+  KidneyPage({super.key});
 
   final List<Map<String, String>> _doctors = [
     {
-      'name': 'Dr. A B M Fazlur Rahman',
-      'qualification': 'MBBS, MS(ortho), FICS',
-      'specialty': 'Orthopaedic specialist',
-      'contact': '9033563',
-      'location': 'Farmgate',
-      'clinic': 'Al-Raji Hospital (Pvt.) Ltd.'
+      'name': 'Dr. ABM Habibullah',
+      'qualification': 'MBBS, BCS(Health)',
+      'specialty': 'Surgeon',
+      'contact': '01707700839',
+      'location': 'Mirpur Road',
+      'clinic': 'Trauma Center'
+    },
+    {
+      'name': 'Dr. A.B Shariar Ahmed',
+      'qualification': 'MBBS, FCPS(Surgery)',
+      'specialty': 'Surgeon',
+      'contact': '01778833299',
+      'location': 'Tongi, Gazipur',
+      'clinic': 'Abeda Memorial Hospital'
+    },
+    {
+      'name': 'Asst. Prof. Dr. AB Siddique',
+      'qualification': 'MBBS, MRCS',
+      'specialty': 'Urologist and Surgeon',
+      'contact': '01776304620',
+      'location': 'Dhanmondi, Dhaka',
+      'clinic': 'Popular Diagnostic Center Ltd'
+    },
+    {
+      'name': 'Dr. A H M Monzurul Islam',
+      'qualification': 'MBBS, Phd(Japan)',
+      'specialty': 'Urologist',
+      'contact': '52153891',
+      'location': 'Dhap, Rangpur',
+      'clinic': 'Rangpur Medical College & Hospital'
+    },
+    {
+      'name': 'Asst. Prof. Dr. A K M Akramul Bari',
+      'qualification': 'MBBS, BCS(Health)',
+      'specialty': 'Urologist',
+      'contact': '01955567001',
+      'location': 'Uttara, Dhaka',
+      'clinic': 'Radical Hospital'
+    },
+    {
+      'name': 'Prof. Dr. M K M Kurshedul Alam',
+      'qualification': 'MBBS, MCPS(Surgery)',
+      'specialty': 'Urologist & Surgeon',
+      'contact': '01712586795',
+      'location': 'Green Road',
+      'clinic': 'Dhaka Hospital'
+    },
+    {
+      'name': 'Dr. Ahidujjaman',
+      'qualification': 'MBBS, MS(Urology)',
+      'specialty': 'Urologist',
+      'contact': '58155938',
+      'location': 'Farmgate, Dhaka',
+      'clinic': 'Al-Raji Hospital'
     },
     {
       'name': 'Dr. Ahsan Kabir',
-      'qualification': 'MBBS, FCPS',
+      'qualification': 'MBBS, MCPS',
       'specialty': 'Urologist & Andrologist',
-      'contact': '028318135',
-      'location': 'Moghbazar',
-      'clinic': 'Monowara Hospital (Pvt.) Ltd.'
+      'contact': '283181350',
+      'location': 'Moghbazar, Dhaka',
+      'clinic': 'Monowara Hospital'
     },
     {
-      'name': 'Dr. Golam Nabi Azad',
-      'qualification': 'MBBS, FCPS (Physical medicine)',
-      'specialty': 'Physical medicine specialist',
-      'contact': '032163016',
-      'location': 'Maijdee',
-      'clinic': 'Prime Hospital Limited'
+      'name': 'Dr. Aminul Islam',
+      'qualification': 'MBBS, DMUD',
+      'specialty': 'Urologist',
+      'contact': '27343825',
+      'location': 'Midford, Dhaka',
+      'clinic': 'Badhon Hospital'
     },
     {
-      'name': 'Prof. Dr. Golam Faruque',
-      'qualification': 'MBBS, MS(ortho)',
-      'specialty': 'Orthopaedic Surgeon',
-      'contact': '10633',
-      'location': 'Lalmatia',
-      'clinic': 'City Hospital Limited'
-    },
-    {
-      'name': 'Dr. Gazi Enamul Kabir',
-      'qualification': 'MBBS, BCS, MS(ortho)',
-      'specialty': 'Orthopaedic Surgeon',
-      'contact': '01708889344',
-      'location': 'Maijdee',
-      'clinic': 'Care Diagnostic Center'
-    },
-    {
-      'name': 'Dr. H. A. Rashid',
-      'qualification': 'MBBS, FCPS, MS',
-      'specialty': 'Orthopaedic Surgeon',
-      'contact': '028157660',
-      'location': 'Mohammadpur',
-      'clinic': 'Dhaka Diagnostic Center'
-    },
-    {
-      'name': 'Dr. H. R. Habib',
-      'qualification': 'MBBS, D-ortho(DU)',
-      'specialty': 'Orthopaedic Surgeon',
-      'contact': '01777595969',
-      'location': 'Station Road',
-      'clinic': 'Health Aid Diagnostic Center & Hospital'
-    },
-    {
-      'name': 'Dr. Hasan Mahbub',
-      'qualification': 'MBBS, BCS, MS',
-      'specialty': 'Neurosurgeon',
-      'contact': '02224444588',
-      'location': 'Savar',
-      'clinic': 'Savar Care Hospital'
-    },
-    {
-      'name': 'Dr. Himadri Barua',
-      'qualification': 'MBBS, D-ortho(C), MS',
-      'specialty': 'Orthopaedic specialist',
-      'contact': '031654046',
-      'location': 'K.B. Fazlul Kader Road',
-      'clinic': 'Medi Aid Complex'
-    },
-    {
-      'name': 'Prof. Dr. Hossain Ahmed',
-      'qualification': 'MBBS, MS(ortho)',
-      'specialty': 'Orthopaedic Surgeon',
-      'contact': '0312525850',
-      'location': 'Panchlaish R/A',
-      'clinic': 'Life Care Center'
+      'name': 'Dr. Fahim Hussain',
+      'qualification': 'MBBS, BCS(Health)',
+      'specialty': 'Urologist & Surgery',
+      'contact': '01731006173',
+      'location': 'Saver, Dhaka',
+      'clinic': 'Islamia Digital Lab & Hospital'
     },
   ];
 
@@ -200,7 +200,7 @@ class BackPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Back Specialists', style: TextStyle(color: Colors.white)),
+        title: const Text('Kidney Specialists', style: TextStyle(color: Colors.white)),
         backgroundColor: Colors.teal,
         centerTitle: true,
         iconTheme: const IconThemeData(color: Colors.white),

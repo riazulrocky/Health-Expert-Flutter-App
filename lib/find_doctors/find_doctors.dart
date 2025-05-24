@@ -3,7 +3,8 @@ import 'package:health_app/find_doctors/back.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
-import 'arm.dart';      // Final ArmPage
+import 'arm.dart';
+import 'kidney.dart'; // Final ArmPage
 
 class FindDoctorsPage extends StatelessWidget {
   FindDoctorsPage({Key? key}) : super(key: key);
@@ -36,34 +37,37 @@ class FindDoctorsPage extends StatelessWidget {
         ),
       ),
       trailing: const Icon(Icons.arrow_forward_ios, size: 16, color: Colors.teal),
-      onTap: () {
-        final String name = part['name'] as String;
+        onTap: () {
+          final String name = part['name']! as String;
 
-        if (name == 'Abdomen') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => AbdomenPage()),
-          );
-        } else if (name == 'Arm') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => ArmPage()),
-          );
+          if (name == 'Abdomen') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => AbdomenPage()),
+            );
+          } else if (name == 'Arm') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => ArmPage()),
+            );
+          }
+          else if (name == 'Back') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => BackPage()),
+            );
+          } else if (name == 'Kidney') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => KidneyPage()),
+            );
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => IBWCalculatorScreen()),
+            );
+          }
         }
-        else if (name == 'Back') {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => BackPage()),
-          );
-        }
-        else {
-          // Placeholder for other body parts
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (_) => const IBWCalculatorScreen()),
-          );
-        }
-      },
     );
   }
 
