@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:health_app/find_doctors/back.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
@@ -48,7 +49,14 @@ class FindDoctorsPage extends StatelessWidget {
             context,
             MaterialPageRoute(builder: (_) => ArmPage()),
           );
-        } else {
+        }
+        else if (name == 'Back') {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (_) => BackPage()),
+          );
+        }
+        else {
           // Placeholder for other body parts
           Navigator.push(
             context,
