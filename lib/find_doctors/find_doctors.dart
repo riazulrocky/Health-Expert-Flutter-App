@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:health_app/find_doctors/back.dart';
 import 'package:health_app/find_doctors/chest.dart';
 import 'package:health_app/find_doctors/ent_page.dart';
+import 'package:health_app/find_doctors/eye.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
@@ -72,6 +73,11 @@ class FindDoctorsPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => EntPage()),
+            );
+          } else if (name == 'Eye') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => EyePage()),
             );
           } else {
             Navigator.push(
