@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/find_doctors/back.dart';
+import 'package:health_app/find_doctors/chest.dart';
+import 'package:health_app/find_doctors/ent_page.dart';
 import 'package:health_app/ibw_calculator.dart';
 
 import 'abdomen.dart';
@@ -60,6 +62,16 @@ class FindDoctorsPage extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => KidneyPage()),
+            );
+          } else if (name == 'Chest') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => ChestPage()),
+            );
+          } else if (name == 'Ear, Nose, Throat') {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => EntPage()),
             );
           } else {
             Navigator.push(
