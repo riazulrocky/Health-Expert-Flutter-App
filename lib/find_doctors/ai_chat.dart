@@ -160,12 +160,13 @@ class _AiChatPageState extends State<AiChatPage> {
           children: const [
             Icon(Icons.smart_toy, color: Colors.white),
             SizedBox(width: 8),
-            Text('HealthBot', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
+            Text('AI Chat', style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
           ],
         ),
         backgroundColor: Colors.teal,
         centerTitle: false,
         elevation: 0,
+        iconTheme: IconThemeData(color: Colors.white),
         actions: [
           IconButton(
             icon: const Icon(Icons.mic, color: Colors.white),
@@ -188,7 +189,7 @@ class _AiChatPageState extends State<AiChatPage> {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Colors.teal, Colors.white],
+            colors: [Colors.white, Colors.white],
           ),
         ),
         child: Column(
@@ -236,7 +237,7 @@ class _AiChatPageState extends State<AiChatPage> {
                       decoration: InputDecoration(
                         hintText: 'Type your question...',
                         hintStyle: TextStyle(color: Colors.teal.shade200),
-                        prefixIcon: const Icon(Icons.edit, color: Colors.teal),
+                        prefixIcon: const Icon(Icons.keyboard, color: Colors.teal),
                         filled: true,
                         fillColor: Colors.white.withOpacity(0.8),
                         border: OutlineInputBorder(
