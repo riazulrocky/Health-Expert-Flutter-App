@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:health_app/blood_bank/blood_bank_page.dart';
 import 'package:health_app/bmi_calculator.dart';
+import 'package:health_app/food_&_nutrition/food_nutrition_page.dart';
 import 'package:health_app/ibw_calculator.dart';
 import 'package:health_app/hospital_page.dart';
 import 'package:health_app/ambulance_page.dart';
@@ -175,6 +176,11 @@ class _QuickActionCard extends StatelessWidget {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (_) => BloodBankPage()),
+            );
+          } else if (label.contains('Food')) {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (_) => FoodNutritionPage()),
             );
           } else if (label.contains('Find')) {
             Navigator.push(
