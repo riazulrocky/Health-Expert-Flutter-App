@@ -46,7 +46,6 @@ class HomePage extends StatelessWidget {
             SizedBox(height: 20),
             _QuickActionsGrid(),
             SizedBox(height: 20),
-            _FooterSection(),
           ],
         ),
       ),
@@ -219,29 +218,6 @@ class _QuickActionCard extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _FooterSection extends StatelessWidget {
-  const _FooterSection();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: Center(
-        child: Wrap(
-          spacing: 16,
-          alignment: WrapAlignment.center,
-          children: const [
-            TextButton(
-              onPressed: null,
-              child: Text('Contact us', style: TextStyle(color: Colors.teal)),
-            ),
-          ],
         ),
       ),
     );
