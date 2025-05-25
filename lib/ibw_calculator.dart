@@ -44,7 +44,7 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
     }
 
     setState(() {
-      _ibw = ibw.round(); // Convert to integer
+      _ibw = ibw.round();
       _result = 'Your Ideal Body Weight is $_ibw kg';
 
       _healthTip = _gender == 'Male'
@@ -68,7 +68,6 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Title
               const Text(
                 'Calculate Your Ideal Body Weight (IBW)',
                 style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.teal),
@@ -184,8 +183,8 @@ class _IBWCalculatorScreenState extends State<IBWCalculatorScreen> {
                           _result,
                           textAlign: TextAlign.center,
                           style: const TextStyle(
-                            fontSize: 28, // Larger font size
-                            fontWeight: FontWeight.bold, // Bold text
+                            fontSize: 28,
+                            fontWeight: FontWeight.bold,
                             color: Colors.teal,
                           ),
                         ),
