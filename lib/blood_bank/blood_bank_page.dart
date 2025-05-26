@@ -10,7 +10,6 @@ class BloodBankPage extends StatefulWidget {
 class _BloodBankPageState extends State<BloodBankPage> {
   String _selectedBloodGroup = 'O+';
   final TextEditingController _searchController = TextEditingController();
-  String _searchQuery = '';
 
   final List<Map<String, String>> _allDonors = [
     // O+ Donors
