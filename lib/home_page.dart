@@ -8,7 +8,7 @@ import 'package:health_app/hospital_page.dart';
 import 'package:health_app/ambulance_page.dart';
 
 import 'find_doctors/ai_chat.dart';
-import 'find_doctors/find_doctors.dart'; // Import your AI Chat page
+import 'find_doctors/find_doctors.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -22,7 +22,7 @@ class HomePage extends StatelessWidget {
     {'icon': Icons.restaurant, 'label': 'Food &\nNutrition'},
     {'icon': Icons.medical_services, 'label': 'Find\nDoctors'},
     {'icon': Icons.sick, 'label': 'Disease &\nSymptoms'},
-    {'icon': Icons.smart_toy, 'label': 'AI\nChat'}, // ✅ Replaced Medi Search
+    {'icon': Icons.smart_toy, 'label': 'AI\nChat'},
   ];
 
   @override
@@ -195,10 +195,9 @@ class _QuickActionCard extends StatelessWidget {
           } else if (label.contains('AI')) {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (_) => AiChatPage()), // ✅ Navigate to AI Chat
+              MaterialPageRoute(builder: (_) => AiChatPage()),
             );
           } else {
-            // Placeholder for unimplemented features
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('$label is under development')),
             );
