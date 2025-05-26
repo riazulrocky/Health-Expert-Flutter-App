@@ -186,9 +186,9 @@ class _BloodBankPageState extends State<BloodBankPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Blood Group Grid (✅ Increased height to fit 2 rows)
+              // Blood Group Grid
               SizedBox(
-                height: 165, // ✅ Increased from 100 to 180
+                height: 165,
                 child: GridView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
