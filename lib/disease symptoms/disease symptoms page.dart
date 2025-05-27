@@ -100,7 +100,6 @@ class _DiseaseSymptomsPageState extends State<DiseaseSymptomsPage> {
         .map((e) => e.toString())
         .toList();
 
-    // ✅ Ensure prevention is List<String>
     final List<String> prevention = (disease['prevention'] as List)
         .map((e) => e.toString())
         .toList();
@@ -192,7 +191,6 @@ class _DiseaseSymptomsPageState extends State<DiseaseSymptomsPage> {
   }
 }
 
-// ✅ Disease Data (All fields as List<String>)
 final List<Map<String, dynamic>> _diseaseData = [
   {
     'name': 'Diabetes',
