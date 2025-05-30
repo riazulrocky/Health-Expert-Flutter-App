@@ -88,14 +88,12 @@ class _DiseaseSymptomsPageState extends State<DiseaseSymptomsPage> {
   }
 
   Widget _buildDiseaseCard(BuildContext context, Map<String, dynamic> disease) {
-    // ✅ Convert description to List<String>
     final List<String> description = (disease['description'] as String)
         .split('\n')
         .map((s) => s.trim())
         .where((s) => s.isNotEmpty)
         .toList();
 
-    // ✅ Ensure symptoms is List<String>
     final List<String> symptoms = (disease['symptoms'] as List)
         .map((e) => e.toString())
         .toList();
