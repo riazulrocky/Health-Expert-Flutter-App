@@ -76,7 +76,7 @@ class _DiseaseSymptomsPageState extends State<DiseaseSymptomsPage> {
                         name.contains(_searchQuery.toLowerCase())) {
                       return _buildDiseaseCard(context, disease);
                     }
-                    return Container(); // Hide non-matching
+                    return Container();
                   },
                 ),
               ),
